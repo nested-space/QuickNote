@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+  - Copyright (c) 09/12/2019, 09:04.2019. EmpowerLCSimConverter by Edward Eden-Rump is licensed under a Creative Commons Attribution 4.0 International License.
+  -
+  - Based on a work at https://github.com/nested-space/fxLCInfoConverter.To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+  -->
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/QuickNote.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.HelpWindowController">
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <Tab text="How dows the process work?">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+                        <padding>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                        <VBox alignment="CENTER" spacing="15.0">
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/document.png" />
+                                </ImageView>
+                                <Label text="Drag and drop your file into the window, or use the &quot;Load&quot; button and select your Empower Export File" wrapText="true" />
+                            </HBox>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../img/download.png" />
+                        </image>
+                     </ImageView>
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/browser.png" />
+                                </ImageView>
+                                <Label text="Use the &quot;Add details&quot; button to include the details about the chromatography such as column temperature and dwell volume. You will need to do this before you can save the file." wrapText="true" />
+                            </HBox>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="30.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../img/download.png" />
+                        </image>
+                     </ImageView>
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/checked.png" />
+                                </ImageView>
+                                <Label text="You can now save your file as a .lc7 file, which you can open straight into LC Simulator. " wrapText="true" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </AnchorPane>
+            </Tab>
+            <Tab text="What should my input file look like?">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/document.png" />
+                                </ImageView>
+                                <Label text="Your input file should contain several &quot;tables&quot; in a tab-delimited format. It should look like this:" wrapText="true" />
+                            </HBox>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                        </VBox>
+                            <TextArea editable="false" prefHeight="104.0" prefWidth="600.0" text="&quot;#&quot;&#9;&quot;Injection Id&quot;&#9;&quot;SampleName&quot;&#9;&quot;Assigned Mass&quot;&#9;&quot;Retention Time&quot;&#9;&quot;Width @ Baseline&quot;&#9;&quot;USP Tailing&quot;&#9;&quot;Area&quot;&#9;&quot;% Area&quot;&#10;1&#9;2682 &#9;&quot;ES19-0123456&quot;&#9;&quot;  688&quot;&#9;10.573&#9;1.516991e-001&#9;&#9;10996&#9;0.78&#10;2&#9;2682 &#9;&quot;ES19-0123456&quot;&#9;&quot;  478&quot;&#9;10.807&#9;1.800385e-001&#9;&#9;7451&#9;0.53&#10;3&#9;2682 &#9;&quot;ES19-0123456&quot;&#9;&quot;  750&quot;&#9;11.103&#9;1.441975e-001&#9;&#9;9843&#9;0.69&#10;4&#9;2682 &#9;&quot;ES19-0123456&quot;&#9;&quot;  704&quot;&#9;11.242&#9;1.225262e-001&#9;&#9;11586&#9;0.82">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin></TextArea>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0">
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/checked.png" />
+                                </ImageView>
+                                <Label text="The rows won't necessarily look even, like a table, because the file is in a tab-delimited format" wrapText="true" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../img/checked.png" />
+                                </ImageView>
+                                <Label text="There should be 9 sets of results (that means you'll see the line starting &quot;#&quot; 9 times)" wrapText="true" />
+                            </HBox>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                        </VBox>
+                            <VBox.margin>
+                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                            </VBox.margin>
+                        <padding>
+                            <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
+                        </padding>
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+
+                    </VBox>
+                </AnchorPane>
+            </Tab>
+        </TabPane>
+    </center>
+    <top>
+        <HBox id="headerHBox" alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+            <Label id="scene-title-label" text="Help!" />
+        </HBox>
+    </top>
+
+</BorderPane>
