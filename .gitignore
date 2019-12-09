@@ -1,6 +1,10 @@
 # Compiled class file
 *.class
 
+# Build and dist directories
+build/
+dist/
+
 # Log file
 *.log
 
