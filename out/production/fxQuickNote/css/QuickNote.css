@@ -1,45 +1,18 @@
 .root{
-    -fx-box-border:transparent;
-    -fx-text-box-border:transparent;
-    -fx-hover-base:#CDE6F7;
-    -fx-selected-color: GREEN;
-    -fx-unselected-color:RED;
-    -fx-no-selection-color:#830051;
-    -fx-border-pressed:#00add0;
-    /* AZ SPECIFIC COLOURS AND HIGHLIGHTS*/
-    -fx-navy-color:#003865;
-    -fx-mulberry-color:#830051;
-    -fx-magenta-color:#D0006F;
-    -fx-limegreen-color:#C4D600;
-    -fx-gold-color:#F0AB00;
-    -fx-lightblue-color:#68D2DF;
-    -fx-purple-color:#3c1053;
-    -fx-platinum-color:#9DB0AC;
+    -fx-font-family: "Red Hat Text";
+}
 
 
-    /*highlght colour derived from lightblue*/
-    -fx-window-highlight: derive(-fx-navy-color, 90%);
-    -fx-menu-background: #EBEFEE;
-    -fx-text-base-color:-fx-navy-color;
-    -fx-text-background-color:-fx-navy-color;
+/*******************************************************************************
+ *                                                                             *
+ * Label                                                                       *
+ *                                                                             *
+ ******************************************************************************/
 
-    /*highlght colour derived from lightblue*/
-    -fx-button-highlight-mulberry: derive(-fx-mulberry-color, 90%);
-    -fx-button-highlight-navy: derive(-fx-navy-color, 90%);
-    -fx-button-highlight-purple: derive(-fx-purple-color, 90%);
-    -fx-button-highlight-gold: derive(-fx-gold-color, 70%);
-
-    -fx-button-press-gold: derive(-fx-gold-color, 50%);
-
-
-    -fx-font-size: 0.9em;
-    -fx-lightblue-background-color: derive(-fx-window-highlight, 90%);
-
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-
-
-
+.label {
+    -fx-text-fill: white;
+    -fx-background-color:red;
+    -fx-min-width:15px;
 }
 
 .separator *.line{
@@ -107,13 +80,6 @@
 
 /*LABELS*/
 
-
-.label{
-    -fx-font-family: Roboto;
-    -fx-text-fill: -fx-navy-color;
-
-}
-
 #postit-title-label{
     -fx-text-fill: white;
 	-fx-font-weight: bold ;
@@ -151,10 +117,6 @@
 
 #minimalComboBox{
 -fx-min-width: 25;}
-
-.text-field{
--fx-border-color:-fx-navy-color;
-}
 
 .background-section {
 -fx-background-color: -fx-lightblue-background-color;
