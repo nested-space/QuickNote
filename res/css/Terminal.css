@@ -17,10 +17,41 @@
 
 .separator *.line{
     -fx-border-style: solid;
-    -fx-border-color: -fx-button-highlight-navy;
-    -fx-border-width: 1px;
-
+    -fx-border-color: white;
+    -fx-border-width: 0.5px;
 }
+
+#postit-title-label{
+    -fx-text-fill: white;
+	-fx-font-weight: bold ;
+	-fx-font-size: 15;
+}
+
+#subTitleLabel{
+    -fx-font-size: 1.2em;
+    -fx-text-fill:-fx-navy-color;
+    -fx-alignment: center;
+}
+
+#title{
+    -fx-text-fill: white;
+	-fx-font-weight: bold ;
+	-fx-font-size: 1.1em;
+}
+
+#scene-title-label{
+    -fx-font-size: 1.6em;
+    -fx-text-fill:-fx-navy-color;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+#errorText{
+    -fx-text-fill: red;
+}
+
+
+
 
 /*******************************************************************************
  *                                                                             *
@@ -92,38 +123,6 @@
 .menu-item:focused .label {
     -fx-text-fill:#FFFFFF;
 }
-
-/*LABELS*/
-
-#postit-title-label{
-    -fx-text-fill: white;
-	-fx-font-weight: bold ;
-	-fx-font-size: 15;
-}
-
-#wip-label{
-    -fx-text-fill: white;
-	-fx-font-weight: bold ;
-	-fx-font-size: 11 pt;
-}
-
-#scene-title-label{
-    -fx-font-size: 1.6em;
-    -fx-text-fill:-fx-navy-color;
-    -fx-font-weight: bold;
-    -fx-alignment: center;
-}
-
-#subTitleLabel{
-    -fx-font-size: 1.2em;
-    -fx-text-fill:-fx-navy-color;
-    -fx-alignment: center;
-}
-
-#errorText{
-    -fx-text-fill: red;
-}
-
 
 /*CHOICE ELEMENTS*/
 .combo-box{
@@ -246,10 +245,6 @@ TABLE VIEWS
 
 #buttonHolder{
 -fx-spacing:10;
-}
-
-#vBox{
--fx-spacing: 10;
 }
 
 #headerHBox{

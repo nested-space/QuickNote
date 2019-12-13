@@ -25,7 +25,15 @@ public class Defaults {
     /**
      * The a completely transparent colour
      */
-    public static final Color NO_BACKGROUND = new Color(0, 0, 0, 0);
+    public static final Color CLEAR_BACKGROUND = new Color(0, 0, 0, 0);
+    /**
+     * Default error message to display when user selection is invalid
+     */
+    public static final String SELECTION_ERROR = "Invalid Selection";
+    /**
+     * Default error message to display when user task selection is well formed, but no task is available
+     */
+    public static final String NO_TASK_OF_THAT_NUMBER = "No task of that number available";
     /**
      * The default width of the terminal in "wide" mode
      */

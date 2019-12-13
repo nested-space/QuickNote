@@ -1,4 +1,4 @@
-package com.edenrump.ui;
+package com.edenrump.ui.terminal;
 
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import javafx.animation.AnimationTimer;

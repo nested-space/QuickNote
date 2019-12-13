@@ -4,23 +4,27 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.edenrump.ui.LinuxTextField?>
-<StackPane fx:id="layout" style="-fx-background-color: transparent; -fx-border-color: black;" stylesheets="/css/Terminal.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.MainWindowController">
-      <AnchorPane fx:id="LoadingPane" style="-fx-background-color: lightblue;" StackPane.alignment="CENTER">
-          <VBox id="loading" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../img/startup.png" />
-              </ImageView>
-              <Label text="Loading..." />
-          </VBox>
-      </AnchorPane>
-    <AnchorPane style="-fx-background-color: transparent;">
-        <AnchorPane fx:id="terminalAnchorLayer" prefHeight="350.0" prefWidth="250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="15.0">
-            <HBox fx:id="terminalInputContainer" alignment="CENTER_LEFT" layoutX="36.0" layoutY="270.0" prefHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                <Label fx:id="leftMessageDisplay" />
-                <LinuxTextField fx:id="terminalInputField" HBox.hgrow="ALWAYS" />
-            </HBox>
-            <ScrollPane fx:id="terminalMessageDisplay" mouseTransparent="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        </AnchorPane>
+<?import com.edenrump.ui.terminal.LinuxTextField?>
+<StackPane fx:id="screenBaseStackPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: transparent; -fx-border-color: black;" stylesheets="/css/Terminal.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.MainWindowController">
+    <AnchorPane StackPane.alignment="CENTER">
+        <StackPane fx:id="terminalBaseStackLayer" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="15.0">
+            <AnchorPane fx:id="terminalAnchorLayer" prefHeight="150.0" prefWidth="600.0" style="-fx-background-color: black;">
+                <HBox fx:id="terminalInputContainer" alignment="CENTER_LEFT" layoutX="36.0" layoutY="270.0" prefHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <Label fx:id="leftMessageDisplay" />
+                    <LinuxTextField fx:id="terminalInputField" HBox.hgrow="ALWAYS" />
+                </HBox>
+                <ScrollPane fitToHeight="true" fitToWidth="true" mouseTransparent="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <VBox fx:id="terminalMessageDisplay"/>
+                </ScrollPane>
+            </AnchorPane>
+            <AnchorPane fx:id="LoadingPane" style="-fx-background-color: lightblue;">
+                <VBox id="loading" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/startup.png" />
+                    </ImageView>
+                    <Label text="Loading..." />
+                </VBox>
+            </AnchorPane>
+        </StackPane>
     </AnchorPane>
 </StackPane>

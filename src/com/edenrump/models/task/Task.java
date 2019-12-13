@@ -23,6 +23,27 @@ public class Task {
     private Date created;
 
     /**
+     * Method to get the date the task was completed, may return null if not complete
+     * @return the date the task was completed (or null)
+     */
+    public Date getCompleted() {
+        return completed;
+    }
+
+    /**
+     * Method to set the date the task was completed
+     * @param completed the date the task was completed
+     */
+    public void setCompleted(Date completed) {
+        this.completed = completed;
+    }
+
+    /**
+     * The date the task was completed
+     */
+    private Date completed;
+
+    /**
      * The id of the user who created the task.
      */
     private String createdBy_Id;
