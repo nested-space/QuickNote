@@ -11,7 +11,7 @@ public class CommandHistory {
     public int put(String newCommand) {
         resetCaret();
 
-        if(newCommand.equals(getLatest())) return numberOfCommands;
+        if (newCommand.equals(getLatest())) return numberOfCommands;
         System.arraycopy(
                 commandHistory, 0,
                 commandHistory, 1,
@@ -63,7 +63,7 @@ public class CommandHistory {
     }
 
     public String increaseCaret() {
-        if(numberOfCommands==0) return "";
+        if (numberOfCommands == 0) return "";
         caretDepth++;
         System.out.println("+Depth: " + caretDepth + " -> " + Arrays.toString(getHistory()));
         if (caretDepth > numberOfCommands) caretDepth = 1;
@@ -71,14 +71,14 @@ public class CommandHistory {
     }
 
     public String decreaseCaret() {
-        if(numberOfCommands==0) return "";
+        if (numberOfCommands == 0) return "";
         caretDepth--;
         System.out.println("-Depth: " + caretDepth + " -> " + Arrays.toString(getHistory()));
         if (caretDepth < 0) caretDepth = 0;
         return getCommand(caretDepth);
     }
 
-    public String[] getHistory(){
+    public String[] getHistory() {
         String[] history = new String[numberOfCommands];
         System.arraycopy(
                 commandHistory, 0,

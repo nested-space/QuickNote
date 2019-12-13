@@ -2,15 +2,10 @@ package com.edenrump.models.task;
 
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
-import javafx.embed.swt.FXCanvas;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Task {
-
     /**
      * The database of the task
      */
@@ -104,6 +99,7 @@ public class Task {
      * @param createdBy_Id the id of the user who created the task
      */
     public Task(String name, Date created, String createdBy_Id) {
+        this._id = UUID.randomUUID().toString();
         this.name = name;
         this.created = created;
         this.createdBy_Id = createdBy_Id;
@@ -182,12 +178,13 @@ public class Task {
         return checklists == null ? new ArrayList<>() : new ReadOnlyListWrapper<>(FXCollections.observableArrayList(checklists));
     }
 
-    public List<Checklist> getChecklists(){
+    public List<Checklist> getChecklists() {
         return checklists == null ? new ArrayList<>() : checklists;
     }
 
     /**
      * Method to get the attachments associated with the task
+     *
      * @return the attachments associated with the task. Returns empty list if no attachments associated
      */
     public List<Attachment> getAttachmentsReadOnly() {
@@ -196,6 +193,7 @@ public class Task {
 
     /**
      * Method to get the tags associated with the task
+     *
      * @return the tags associated with the task. Returns empty list if no tags associated
      */
     public List<String> getTagsReadOnly() {
@@ -204,6 +202,7 @@ public class Task {
 
     /**
      * Method to get the comments associated with the task
+     *
      * @return the comments associated with the task. Returns empty list if no comments associated
      */
     public List<Comment> getCommentsReadOnly() {
@@ -212,6 +211,7 @@ public class Task {
 
     /**
      * Method to set the id of the owner of the task
+     *
      * @param owner_id the id of the owner of the task
      */
     public void setOwner_id(String owner_id) {
@@ -220,6 +220,7 @@ public class Task {
 
     /**
      * Method to set the priority of the task
+     *
      * @param priority the priority of the task
      */
     public void setPriority(String priority) {
@@ -228,6 +229,7 @@ public class Task {
 
     /**
      * Method to set the id of the task's parent
+     *
      * @param parentTask_id the id of the parent of the task
      */
     public void setParentTask_id(String parentTask_id) {
@@ -236,6 +238,7 @@ public class Task {
 
     /**
      * Method to set the checklists associated with the task
+     *
      * @param checklists the checklists associated with the task
      */
     public void setChecklists(List<Checklist> checklists) {
@@ -244,6 +247,7 @@ public class Task {
 
     /**
      * Method to set the attachments associated with the task
+     *
      * @param attachments the attachments associated with the task
      */
     public void setAttachments(List<Attachment> attachments) {
@@ -252,6 +256,7 @@ public class Task {
 
     /**
      * Method to set the tags associated with the task
+     *
      * @param tags the tags associated with the task
      */
     public void setTags(List<String> tags) {
@@ -260,6 +265,7 @@ public class Task {
 
     /**
      * Method to set the comments associated with the task
+     *
      * @param comments the comments associated with the task
      */
     public void setComments(List<Comment> comments) {
@@ -269,40 +275,44 @@ public class Task {
     /**
      * Method to add a comment to the list of comments associated with the task.
      * Supports lazy initialisation of comments
+     *
      * @param comment the comment to be associated with the task
      */
-    public void addComment(Comment comment){
-        if (comments==null) comments = new ArrayList<>();
+    public void addComment(Comment comment) {
+        if (comments == null) comments = new ArrayList<>();
         comments.add(comment);
     }
 
     /**
      * Method to add a attachment to the list of comments associated with the task.
      * Supports lazy initialisation of comments
+     *
      * @param attachment the attachment to be associated with the task
      */
-    public void addAttachment(Attachment attachment){
-        if (attachments==null) attachments = new ArrayList<>();
+    public void addAttachment(Attachment attachment) {
+        if (attachments == null) attachments = new ArrayList<>();
         attachments.add(attachment);
     }
 
     /**
      * Method to add a tag to the list of comments associated with the task.
      * Supports lazy initialisation of comments
+     *
      * @param tag the tag to be associated with the task
      */
-    public void addTag(String tag){
-        if (tags==null) tags = new ArrayList<>();
+    public void addTag(String tag) {
+        if (tags == null) tags = new ArrayList<>();
         tags.add(tag);
     }
 
     /**
      * Method to add a checklist to the list of comments associated with the task.
      * Supports lazy initialisation of comments
+     *
      * @param checklist the checklist to be associated with the task
      */
-    public void addChecklist(Checklist checklist){
-        if (checklists==null) checklists = new ArrayList<>();
+    public void addChecklist(Checklist checklist) {
+        if (checklists == null) checklists = new ArrayList<>();
         checklists.add(checklist);
     }
 
@@ -431,6 +441,7 @@ public class Task {
 
         /**
          * Method to set the item number
+         *
          * @param number the item number
          */
         public void setNumber(int number) {
@@ -439,6 +450,7 @@ public class Task {
 
         /**
          * Method to get the item number
+         *
          * @return the item number
          */
         public int getNumber() {

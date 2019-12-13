@@ -11,7 +11,7 @@
   - Based on a work at https://github.com/nested-space/fxLCInfoConverter.To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
   -->
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/QuickNote.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.HelpWindowController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Terminal.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.HelpWindowController">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <Tab text="How dows the process work?">

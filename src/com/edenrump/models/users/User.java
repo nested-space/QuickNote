@@ -1,4 +1,4 @@
-package com.edenrump.models;
+package com.edenrump.models.users;
 
 import java.util.UUID;
 
@@ -24,8 +24,9 @@ public class User {
 
     /**
      * Method to create a user where the id is known
-     * @param _id the id of the user
-     * @param name the name of the user
+     *
+     * @param _id   the id of the user
+     * @param name  the name of the user
      * @param email the email address of the user
      */
     public User(String _id, String name, String email) {
@@ -36,7 +37,8 @@ public class User {
 
     /**
      * Method to create a new user
-     * @param name the name of the user
+     *
+     * @param name  the name of the user
      * @param email the email of the user
      */
     public User(String name, String email) {
@@ -47,6 +49,7 @@ public class User {
 
     /**
      * Method to get the id of the user
+     *
      * @return the id of the user
      */
     public String get_id() {
@@ -55,6 +58,7 @@ public class User {
 
     /**
      * Method to get the name of user
+     *
      * @return the name of the user
      */
     public String getName() {
@@ -63,6 +67,7 @@ public class User {
 
     /**
      * Method to set the name of user
+     *
      * @return the name of the user
      */
     public void setName(String name) {
@@ -71,6 +76,7 @@ public class User {
 
     /**
      * Method to get the email address of user
+     *
      * @return the email address of the user
      */
     public String getEmail() {
@@ -79,6 +85,7 @@ public class User {
 
     /**
      * Method to set the email address of user
+     *
      * @return the email address of the user
      */
     public void setEmail(String email) {

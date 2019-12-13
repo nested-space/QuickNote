@@ -2,9 +2,6 @@ package com.edenrump.ui;
 
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import javafx.animation.AnimationTimer;
-import javafx.animation.PauseTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -13,21 +10,19 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 /**
  * Class representing a text field that has been styled to look like a linux terminal and with controls modified to
  * recreate a linux terminal experience
- *
+ * <p>
  * Style modifications are:
- *      The terminal is black
- *      The cursor is wide (6px) and white
- *      The text is white
- *      TODO: the text font is similar to that of a Fedora terminal
- *
+ * The terminal is black
+ * The cursor is wide (6px) and white
+ * The text is white
+ * TODO: the text font is similar to that of a Fedora terminal
+ * <p>
  * Control modifications are:
- *      Selection has been removed. User cannot select text.
- *
+ * Selection has been removed. User cannot select text.
  */
 public class LinuxTextField extends TextField {
 
@@ -37,7 +32,7 @@ public class LinuxTextField extends TextField {
      * Constructor. Creates a text field that is styled to look like a linux terminal and controls are modified to
      * recreate a linux terminal experience
      */
-    public LinuxTextField(){
+    public LinuxTextField() {
         this.setSkin(mSkin);
         this.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
             if (!this.getSelectedText().isEmpty()) {
@@ -57,14 +52,14 @@ public class LinuxTextField extends TextField {
      * Method to start the AnimationTimer preventing blinking remove behaviour class control over cursor blinking
      * This may have the effect of making this cursor disappear.
      */
-    public void stopCursorBlink(){
+    public void stopCursorBlink() {
         timer.start();
     }
 
     /**
      * Method to stop the AnimationTimer preventing blinking and return cursor blinking to native control
      */
-    public void resetCursorBlink(){
+    public void resetCursorBlink() {
         timer.stop();
         mSkin.setCaretAnimating(true);
     }

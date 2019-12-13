@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  * Class representing a timer that periodically tests for changes to the system clipboard and
- *
+ * <p>
  * this method copies PLAIN_TEXT and FILES DataFormats, because other data formats such as RTF and HTML compare
  * based on hashes rather than content making false-positive comparissons all but certain.
- *
+ * <p>
  * This class currently operates on an executable list model rather than Observer/Observable with inversion of control.
  * Future implementations may give the user a Property which changes when clipboard has changed
  */
@@ -73,9 +73,10 @@ public class ClipboardListener {
 
     /**
      * Utility method to retrieve the system clipboard
+     *
      * @return the system clipboard
      */
-    public Clipboard getClipboard(){
+    public Clipboard getClipboard() {
         return clipboard;
     }
 
@@ -117,12 +118,12 @@ public class ClipboardListener {
     /**
      * Method to copy the content of the clipboard content into a record for later determining whether changes to the
      * clipboard have been made
-     *
+     * <p>
      * Again, in line with isContentChanged(), this method copies PLAIN_TEXT and FILES DataFormats, because other data
      * formats such as RTF and HTML compare based on hashes rather than content making false-positive comparissons
      * all but certain.
      *
-     * @param clipboard the current system clipboard
+     * @param clipboard  the current system clipboard
      * @param oldContent the record of the system clipboard content kept by this class
      */
     private void copyContent(Clipboard clipboard, ClipboardContent oldContent) {

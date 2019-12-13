@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.*?>
-
-<BorderPane stylesheets="/css/QuickNote.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.MainWindowController">
-   <center>
-      <AnchorPane fx:id="anchorBase" prefHeight="350.0" prefWidth="250.0" style="-fx-background-color: black;" />
-   </center>
-</BorderPane>
