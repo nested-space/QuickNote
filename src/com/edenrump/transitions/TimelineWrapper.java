@@ -1,6 +1,5 @@
 package com.edenrump.transitions;
 
-import com.sun.xml.internal.ws.resources.UtilMessages;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 
@@ -13,32 +12,35 @@ public class TimelineWrapper {
 
     /**
      * Contructor creates a new wrapper
+     *
      * @param timeline the timeline
      */
-    private TimelineWrapper(Timeline timeline){
+    private TimelineWrapper(Timeline timeline) {
         this.timeline = timeline;
     }
 
     /**
      * Method to create a new timeline wrapper from defined keyframes
+     *
      * @param keyframes the keyframes that constitute the new timeline to be wrapped
      * @return the created wrapper
      */
-    public static TimelineWrapper create(KeyFrame... keyframes){
+    public static TimelineWrapper create(KeyFrame... keyframes) {
         return new TimelineWrapper(new Timeline(keyframes));
     }
 
-    public static TimelineWrapper wrap(Timeline t){
+    public static TimelineWrapper wrap(Timeline t) {
         System.out.println("Wrapping timeline " + t);
         return new TimelineWrapper(t);
     }
 
     /**
      * Method to set execution of stated timeline after the current one
+     *
      * @param t2 the timeline to delay
      * @return the delayed timeline wrapped in a wrapper
      */
-    public TimelineWrapper chain(Timeline t2){
+    public TimelineWrapper chain(Timeline t2) {
         this.timeline.setOnFinished(e -> {
             t2.play();
             System.out.println("Second animation playing");
@@ -56,9 +58,10 @@ public class TimelineWrapper {
 
     /**
      * Method to get the wrapped timeline
+     *
      * @return the wrapped timeline
      */
-    public Timeline get(){
+    public Timeline get() {
         return timeline;
     }
 

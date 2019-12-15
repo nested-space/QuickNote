@@ -1,21 +1,19 @@
 package com.edenrump.test;
 
-import javafx.animation.*;
-import javafx.application.*;
-import javafx.beans.property.*;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
-import javafx.scene.*;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.*;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.image.*;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 public class FrostyTech extends Application {
 
@@ -27,11 +25,16 @@ public class FrostyTech extends Application {
     private static final ImageView background = new ImageView();
     private static final StackPane layout = new StackPane();
 
-    @Override public void start(Stage stage) {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
         layout.getChildren().setAll(background, createContent());
         layout.setStyle("-fx-background-color: null");
 
-        Scene scene = new Scene(layout,800 , 800,Color.TRANSPARENT);
+        Scene scene = new Scene(layout, 800, 800, Color.TRANSPARENT);
 
         Platform.setImplicitExit(false);
 
@@ -75,7 +78,6 @@ public class FrostyTech extends Application {
         return label;
     }
 
-
     private javafx.scene.shape.Rectangle makeSmoke(Stage stage) {
         return new javafx.scene.shape.Rectangle(
                 stage.getWidth(),
@@ -84,10 +86,5 @@ public class FrostyTech extends Application {
                         0, 1, 1, 0.08
                 )
         );
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

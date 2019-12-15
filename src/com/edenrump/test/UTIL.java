@@ -1,13 +1,10 @@
 package com.edenrump.test;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class UTIL {
     // makes a stage draggable using a given node.
@@ -42,7 +39,9 @@ public class UTIL {
         });
     }
 
-    /** records relative x and y co-ordinates. */
+    /**
+     * records relative x and y co-ordinates.
+     */
     private static class Delta {
         double x, y;
     }

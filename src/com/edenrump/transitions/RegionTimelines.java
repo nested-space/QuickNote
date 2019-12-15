@@ -1,6 +1,9 @@
 package com.edenrump.transitions;
 
-import javafx.animation.*;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -14,13 +17,15 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.util.Set;
+
 public class RegionTimelines {
 
     private static final Duration MOVEMENT_DURATION = Duration.millis(200);
-    private static final Duration SHADING_DURATION = Duration.millis(100);
+    private static final Duration SHADING_DURATION = Duration.millis(200);
     private static final Duration DELAY_DURATION = Duration.millis(100);
 
-    public static Timeline opacityTimeline(Region region, double o1, double o2){
+    public static Timeline opacityTimeline(Region region, double o1, double o2) {
         return new Timeline(
                 new KeyFrame(Duration.millis(0),
                         new KeyValue(region.opacityProperty(), o1, Interpolator.LINEAR)),
@@ -55,7 +60,7 @@ public class RegionTimelines {
         return t;
     }
 
-    public static Timeline translationTimeline(Region region, double x1, double y1, double x2, double y2){
+    public static Timeline translationTimeline(Region region, double x1, double y1, double x2, double y2) {
         return new Timeline(
                 new KeyFrame(Duration.millis(0),
                         new KeyValue(region.translateXProperty(), x1, Interpolator.EASE_BOTH)),
@@ -65,6 +70,20 @@ public class RegionTimelines {
                         new KeyValue(region.translateXProperty(), x2, Interpolator.EASE_BOTH)),
                 new KeyFrame(MOVEMENT_DURATION,
                         new KeyValue(region.translateYProperty(), y2, Interpolator.EASE_BOTH))
+        );
+
+    }
+
+    public static Timeline layoutTimeline(Region region, double x1, double y1, double x2, double y2) {
+        return new Timeline(
+                new KeyFrame(Duration.millis(0),
+                        new KeyValue(region.layoutXProperty(), x1, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.millis(0),
+                        new KeyValue(region.layoutYProperty(), y1, Interpolator.EASE_BOTH)),
+                new KeyFrame(MOVEMENT_DURATION,
+                        new KeyValue(region.layoutXProperty(), x2, Interpolator.EASE_BOTH)),
+                new KeyFrame(MOVEMENT_DURATION,
+                        new KeyValue(region.layoutYProperty(), y2, Interpolator.EASE_BOTH))
         );
 
     }
@@ -125,7 +144,7 @@ public class RegionTimelines {
         );
     }
 
-    public static Timeline createFlash(Region region, Color cStart, Color cHighlight){
+    public static Timeline createFlash(Region region, Color cStart, Color cHighlight) {
         Timeline t1 = RegionTimelines.createFlash(region, cStart, cHighlight);
         Timeline t2 = RegionTimelines.createFlash(region, cHighlight, cStart);
         Timeline t3 = RegionTimelines.createFlash(region, cStart, cHighlight);
@@ -140,16 +159,29 @@ public class RegionTimelines {
     }
 
     public static void createCascade(Timeline... timelines) {
-        for(int i=0; i<timelines.length;i++){
-            timelines[i].setDelay(new Duration(i*DELAY_DURATION.toMillis()));
+        for (int i = 0; i < timelines.length; i++) {
+            timelines[i].setDelay(new Duration(i * DELAY_DURATION.toMillis()));
         }
     }
 
     public static Timeline combineTimelines(Timeline... timelines) {
         Timeline combined = new Timeline();
-        for(int i=0; i<timelines.length; i++){
+        for (int i = 0; i < timelines.length; i++) {
             combined.getKeyFrames().addAll(timelines[i].getKeyFrames());
         }
         return combined;
+    }
+
+    public static Timeline delay(Timeline timeline, Duration delay) {
+        int frameCount = 0;
+        KeyFrame[] keyFrames = new KeyFrame[timeline.getKeyFrames().size()];
+        for (KeyFrame k : timeline.getKeyFrames()) {
+            Set<KeyValue> values = k.getValues();
+            KeyValue[] keyValues = new KeyValue[values.size()];
+            int valueCount = 0;
+            for (KeyValue value : values) keyValues[valueCount++] = value;
+            keyFrames[frameCount++] = new KeyFrame(Duration.millis(k.getTime().toMillis() + delay.toMillis()), keyValues);
+        }
+        return new Timeline(keyFrames);
     }
 }

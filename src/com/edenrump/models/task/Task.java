@@ -21,63 +21,38 @@ public class Task {
      * The date the task was created
      */
     private Date created;
-
-    /**
-     * Method to get the date the task was completed, may return null if not complete
-     * @return the date the task was completed (or null)
-     */
-    public Date getCompleted() {
-        return completed;
-    }
-
-    /**
-     * Method to set the date the task was completed
-     * @param completed the date the task was completed
-     */
-    public void setCompleted(Date completed) {
-        this.completed = completed;
-    }
-
     /**
      * The date the task was completed
      */
     private Date completed;
-
     /**
      * The id of the user who created the task.
      */
     private String createdBy_Id;
-
     /**
      * The id of the user who owns the task
      */
     private String owner_id;
-
     /**
      * The priority of the task
      */
     private String priority;
-
     /**
      * The id of the task's parent, if applicable
      */
     private String parentTask_id;
-
     /**
      * A list of checklists associated with the task
      */
     private List<Checklist> checklists;
-
     /**
      * A list of attachments associated with the task
      */
     private List<Attachment> attachments;
-
     /**
      * A list of tags associated with the task
      */
     private List<String> tags;
-
     /**
      * A list of comments associated with the task
      */
@@ -128,6 +103,24 @@ public class Task {
     }
 
     /**
+     * Method to get the date the task was completed, may return null if not complete
+     *
+     * @return the date the task was completed (or null)
+     */
+    public Date getCompleted() {
+        return completed;
+    }
+
+    /**
+     * Method to set the date the task was completed
+     *
+     * @param completed the date the task was completed
+     */
+    public void setCompleted(Date completed) {
+        this.completed = completed;
+    }
+
+    /**
      * Method to get the id of the task
      *
      * @return the id of the task
@@ -173,6 +166,15 @@ public class Task {
     }
 
     /**
+     * Method to set the id of the owner of the task
+     *
+     * @param owner_id the id of the owner of the task
+     */
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
+    }
+
+    /**
      * Method to get the priority of the task
      *
      * @return the priority of the task
@@ -182,12 +184,30 @@ public class Task {
     }
 
     /**
+     * Method to set the priority of the task
+     *
+     * @param priority the priority of the task
+     */
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Method to get the id of the task's parent (if it has one)
      *
      * @return the id of the task's parent (may be null if no parent exists).
      */
     public String getParentTask_id() {
         return parentTask_id;
+    }
+
+    /**
+     * Method to set the id of the task's parent
+     *
+     * @param parentTask_id the id of the parent of the task
+     */
+    public void setParentTask_id(String parentTask_id) {
+        this.parentTask_id = parentTask_id;
     }
 
     /**
@@ -201,6 +221,15 @@ public class Task {
 
     public List<Checklist> getChecklists() {
         return checklists == null ? new ArrayList<>() : checklists;
+    }
+
+    /**
+     * Method to set the checklists associated with the task
+     *
+     * @param checklists the checklists associated with the task
+     */
+    public void setChecklists(List<Checklist> checklists) {
+        this.checklists = checklists;
     }
 
     /**
@@ -228,42 +257,6 @@ public class Task {
      */
     public List<Comment> getCommentsReadOnly() {
         return comments == null ? new ArrayList<>() : new ReadOnlyListWrapper<>(FXCollections.observableArrayList(comments));
-    }
-
-    /**
-     * Method to set the id of the owner of the task
-     *
-     * @param owner_id the id of the owner of the task
-     */
-    public void setOwner_id(String owner_id) {
-        this.owner_id = owner_id;
-    }
-
-    /**
-     * Method to set the priority of the task
-     *
-     * @param priority the priority of the task
-     */
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    /**
-     * Method to set the id of the task's parent
-     *
-     * @param parentTask_id the id of the parent of the task
-     */
-    public void setParentTask_id(String parentTask_id) {
-        this.parentTask_id = parentTask_id;
-    }
-
-    /**
-     * Method to set the checklists associated with the task
-     *
-     * @param checklists the checklists associated with the task
-     */
-    public void setChecklists(List<Checklist> checklists) {
-        this.checklists = checklists;
     }
 
     /**
@@ -459,25 +452,6 @@ public class Task {
          * The text (name or description) of the item
          */
         private String text;
-
-        /**
-         * Method to set the item number
-         *
-         * @param number the item number
-         */
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        /**
-         * Method to get the item number
-         *
-         * @return the item number
-         */
-        public int getNumber() {
-            return number;
-        }
-
         private int number;
 
         /**
@@ -489,6 +463,24 @@ public class Task {
         public ChecklistItem(boolean done, String text) {
             this.done = done;
             this.text = text;
+        }
+
+        /**
+         * Method to get the item number
+         *
+         * @return the item number
+         */
+        public int getNumber() {
+            return number;
+        }
+
+        /**
+         * Method to set the item number
+         *
+         * @param number the item number
+         */
+        public void setNumber(int number) {
+            this.number = number;
         }
 
         /**

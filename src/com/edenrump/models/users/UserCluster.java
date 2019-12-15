@@ -48,6 +48,15 @@ public class UserCluster {
     }
 
     /**
+     * Method to set the name of the cluster
+     *
+     * @param name the name of the cluster. Not recommended to be more than 40 characters.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
      * Method to get the users in the cluster
      * Supports lazy initialisation
      *
@@ -55,15 +64,6 @@ public class UserCluster {
      */
     public List<User> getUsers() {
         return users == null ? users = new ArrayList<>() : users;
-    }
-
-    /**
-     * Method to set the name of the cluster
-     *
-     * @param name the name of the cluster. Not recommended to be more than 40 characters.
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**

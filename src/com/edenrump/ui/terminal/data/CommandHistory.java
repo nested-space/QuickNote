@@ -1,4 +1,4 @@
-package com.edenrump.ui.data;
+package com.edenrump.ui.terminal.data;
 
 import java.util.Arrays;
 
@@ -7,6 +7,10 @@ public class CommandHistory {
     private int caretDepth = 0;
     private int numberOfCommands = 0;
     private String[] commandHistory;
+
+    public CommandHistory(int maxNumber) {
+        commandHistory = new String[maxNumber];
+    }
 
     public int put(String newCommand) {
         resetCaret();
@@ -19,10 +23,6 @@ public class CommandHistory {
         commandHistory[0] = newCommand;
         numberOfCommands = Math.min(numberOfCommands + 1, commandHistory.length);
         return numberOfCommands;
-    }
-
-    public CommandHistory(int maxNumber) {
-        commandHistory = new String[maxNumber];
     }
 
     public String getCommand(int depth) {

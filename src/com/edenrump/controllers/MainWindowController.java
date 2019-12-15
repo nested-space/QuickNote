@@ -4,17 +4,18 @@ import com.edenrump.config.Defaults;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.transitions.RegionTimelines;
-import com.edenrump.transitions.TimelineWrapper;
-import com.edenrump.ui.display.HolderRectangle;
-import com.edenrump.ui.terminal.LinuxTextField;
-import com.edenrump.ui.data.CommandHistory;
+import com.edenrump.ui.display.board.GroupBoard;
+import com.edenrump.ui.display.board.data.BoardTicket;
+import com.edenrump.ui.display.board.data.BoardTicketGroup;
+import com.edenrump.ui.display.board.data.LayoutType;
+import com.edenrump.ui.terminal.controls.LinuxTextField;
+import com.edenrump.ui.terminal.data.CommandHistory;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -90,6 +91,12 @@ public class MainWindowController implements Initializable {
      */
     private CommandHistory commandHistory = new CommandHistory(7);
 
+    private GroupBoard groupBoard;
+    /**
+     * A map of all tasks available to the user
+     */
+    private Map<Integer, Pair<Task, Label>> taskMap = new HashMap<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         terminalInputField.setEditable(false);
@@ -108,6 +115,7 @@ public class MainWindowController implements Initializable {
         terminalBaseStackLayer.getChildren().remove(LoadingPane);
         terminalInputField.getScene().getWindow().setX(0);
         terminalInputField.getScene().getWindow().setY(0);
+        groupBoard = new GroupBoard(displayAnchorPane);
     }
 
     private void addKeyListeners() {
@@ -203,39 +211,18 @@ public class MainWindowController implements Initializable {
             RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, Defaults.LARGE_WIDTH, Defaults.LARGE_HEIGHT, event -> enterEditMode()).playFromStart();
         });
 
+        groupBoard.setTransitionsAnimated(true);
+        BoardTicketGroup btg = new BoardTicketGroup("ID", LayoutType.CLUSTER);
+        btg.addContent(new BoardTicket("Title", new HashMap<>(), "Id"));
+        System.out.println(btg.getContents().size());
+
         handleSingleWordTerminalCommand(arguments, "show", () -> {
-            HolderRectangle task = new HolderRectangle();
-            Color faded = new Color(1, 0, 0, 0.5);
-            task.addHeaderBox("Task name", 0, faded);
-            AnchorPane.setTopAnchor(task, 15d);
-            AnchorPane.setLeftAnchor(task, 15d);
-            displayAnchorPane.getChildren().add(task);
-            task.setTranslateY(50);
-            task.setOpacity(0);
-
-            HolderRectangle task2 = new HolderRectangle();
-            task2.addHeaderBox("Task name", 0, faded);
-            AnchorPane.setTopAnchor(task2, 85d);
-            AnchorPane.setLeftAnchor(task2, 15d);
-            displayAnchorPane.getChildren().add(task2);
-            task2.setTranslateY(50);
-            task2.setOpacity(0);
-
-            Timeline t1f = RegionTimelines.opacityTimeline(task, 0, 1);
-            Timeline t2f = RegionTimelines.opacityTimeline(task2, 0, 1);
-            Timeline t1t = RegionTimelines.translationTimeline(task, 0, 50, 0, 0);
-            Timeline t2t = RegionTimelines.translationTimeline(task2, 0, 50, 0, 0);
-
-            Timeline task1all = RegionTimelines.combineTimelines(t1f, t1t);
-            Timeline task2all = RegionTimelines.combineTimelines(t2f, t2t);
-
-            Color cStart = (Color) terminalInputField.getScene().getFill();
-            Timeline bgt = RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.DARK_BACKGROUND);
-
-            RegionTimelines.createCascade(bgt, task1all, task2all);
-            task1all.play();task2all.play();bgt.play();
+            groupBoard.addContent(btg);
         });
 
+        handleSingleWordTerminalCommand(arguments, "hide", () -> {
+            groupBoard.removeContent(btg);
+        });
         handleSingleWordTerminalCommand(arguments, "flash", () -> {
             Color flash = Color.web("49e819");
             Color cStart = (Color) terminalAnchorLayer.getBackground().getFills().get(0).getFill();
@@ -273,12 +260,26 @@ public class MainWindowController implements Initializable {
         setInputText("");
     }
 
+    private Timeline fadeIn(Region... regions) {
+        Timeline global = new Timeline();
+
+        for (int i = 0; i < regions.length; i++) {
+            Timeline translateAndFade = RegionTimelines.delay(
+                    RegionTimelines.combineTimelines(
+                            RegionTimelines.opacityTimeline(regions[i], 0, 1),
+                            RegionTimelines.translationTimeline(regions[i], 0, 20, 0, 0)
+                    ), Duration.millis(i * com.edenrump.ui.display.board.animation.Defaults.ANIMATION_DELAY));
+            global.getKeyFrames().addAll(translateAndFade.getKeyFrames());
+        }
+        return global;
+    }
+
     private String handleSelectionTerminalCommand(List<String> arguments) {
         int selection;
-        try{
+        try {
             selection = Integer.parseInt(arguments.get(0).substring(1));
-            if(!taskMap.containsKey(selection)) return Defaults.NO_TASK_OF_THAT_NUMBER;
-        } catch (NumberFormatException n){
+            if (!taskMap.containsKey(selection)) return Defaults.NO_TASK_OF_THAT_NUMBER;
+        } catch (NumberFormatException n) {
             n.printStackTrace();
             return Defaults.SELECTION_ERROR;
         }
@@ -341,11 +342,6 @@ public class MainWindowController implements Initializable {
         terminalMessageDisplay.getChildren().add(tasks);
 
     }
-
-    /**
-     * A map of all tasks available to the user
-     */
-    private Map<Integer, Pair<Task, Label>> taskMap = new HashMap<>();
 
     /**
      * Method to set the current stage

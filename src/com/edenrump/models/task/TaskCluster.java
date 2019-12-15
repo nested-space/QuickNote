@@ -48,6 +48,15 @@ public class TaskCluster {
     }
 
     /**
+     * Method to set the name of the cluster
+     *
+     * @param name the name of the cluster. Not recommended to be more than 40 characters.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
      * Method to get the tasks in the cluster
      * Supports lazy initialisation
      *
@@ -55,15 +64,6 @@ public class TaskCluster {
      */
     public List<Task> getTasks() {
         return tasks == null ? tasks = new ArrayList<>() : tasks;
-    }
-
-    /**
-     * Method to set the name of the cluster
-     *
-     * @param name the name of the cluster. Not recommended to be more than 40 characters.
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**

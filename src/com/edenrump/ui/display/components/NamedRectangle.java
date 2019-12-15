@@ -1,14 +1,10 @@
-package com.edenrump.ui.display;
+package com.edenrump.ui.display.components;
 
 import com.edenrump.ui.Parameterisable;
-import javafx.beans.property.ReadOnlyMapWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -121,14 +117,6 @@ public class NamedRectangle extends StackPane implements Parameterisable {
         mLabel.setWrapText(true);
         mLabel.setPrefWidth(90);
         mLabel.setTextAlignment(TextAlignment.CENTER);
-
-        //set alignment
-        mLabel.heightProperty().addListener((observable, oldValue, newValue) -> {
-            mBackgroundRectangle.heightProperty().setValue(newValue);
-            setMinHeight(newValue.doubleValue() + 2);
-            setPrefHeight(newValue.doubleValue());
-
-        });
 
         //add children
         getChildren().addAll(mBackgroundRectangle, mLabel);

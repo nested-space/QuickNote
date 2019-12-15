@@ -1,4 +1,4 @@
-package com.edenrump.ui.terminal;
+package com.edenrump.ui.terminal.controls;
 
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import javafx.animation.AnimationTimer;
@@ -27,6 +27,15 @@ import javafx.scene.paint.Color;
 public class LinuxTextField extends TextField {
 
     private TextFieldSkin mSkin = new TextFieldCaretControlSkin(this, new Color(1, 1, 1, 0.5));
+    /**
+     * AnimationTimer periodically preventing cursor from blinking. This may have the effect of removing it..
+     */
+    final AnimationTimer timer = new AnimationTimer() {
+        @Override
+        public void handle(long time) {
+            mSkin.setCaretAnimating(false);
+        }
+    };
 
     /**
      * Constructor. Creates a text field that is styled to look like a linux terminal and controls are modified to
@@ -78,16 +87,6 @@ public class LinuxTextField extends TextField {
             caretPath.setTranslateX(4);
         }
     }
-
-    /**
-     * AnimationTimer periodically preventing cursor from blinking. This may have the effect of removing it..
-     */
-    final AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long time) {
-            mSkin.setCaretAnimating(false);
-        }
-    };
 
 
 }

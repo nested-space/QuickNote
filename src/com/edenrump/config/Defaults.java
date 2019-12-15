@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * Class that contains application defaults. Implements the singleton design pattern
  */
-public class Defaults {
+public final class Defaults {
 
     /**
      * The default string displayed by the terminal in display mode

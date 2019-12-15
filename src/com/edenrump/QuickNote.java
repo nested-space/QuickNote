@@ -8,8 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -31,6 +29,7 @@ public class QuickNote extends Application {
 
     /**
      * The entry point for this application
+     *
      * @param args commandline arguments, not currently handled
      */
     public static void main(String[] args) {
@@ -39,6 +38,7 @@ public class QuickNote extends Application {
 
     /**
      * The initial method for JavaFX program launch
+     *
      * @param stage the stage to be loaded
      * @throws IOException an exception thrown if the fxmlLoader cannot load the parent element.
      */
@@ -64,10 +64,11 @@ public class QuickNote extends Application {
 
     /**
      * Utility method containing all modifications to the parent stage prior to launch
+     *
      * @param stage the parent stage
-     * @param root the root element of the parent stage
+     * @param root  the root element of the parent stage
      */
-    private void setUpStage(Stage stage, Parent root){
+    private void setUpStage(Stage stage, Parent root) {
         stage.setTitle(APP_NAME_URL);
         stage.getIcons().add(new Image(getClass().getResourceAsStream(APP_ICON_URL)));
         Scene scene = new Scene(root, screen.getWidth(), screen.getHeight(), Color.TRANSPARENT);

@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class GsonTester {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             User user = new User("Ed Eden-Rump", "ed.edenrump@gmail.com");
             Task task = new Task("First Task", new Date(), user.get_id());

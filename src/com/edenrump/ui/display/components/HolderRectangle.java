@@ -1,4 +1,4 @@
-package com.edenrump.ui.display;
+package com.edenrump.ui.display.components;
 
 import com.edenrump.ui.Parameterisable;
 import javafx.geometry.Insets;
@@ -39,13 +39,24 @@ public class HolderRectangle extends VBox implements Parameterisable {
     private NamedRectangle mHeaderRectangle = new NamedRectangle();
     private VBox headerHolderVBox = new VBox();
     private ImageView headerImage = new ImageView();
+    /* ****************************************************************************************************************
+     *   Children
+     * ***************************************************************************************************************/
+    //Create a VBox to hold child (impurity, CQA etc) rectangles
+    private VBox childHolderVBox = new VBox();
+    private Map<String, String> parameterMap = new HashMap<>();
 
-    public void addHeaderBox(String substanceName, Integer materialID, Color materialColor) {
+    public HolderRectangle() {
+        super();
+        setUpLayout();
+    }
+
+    public void addHeaderBox(String substanceName, String materialID, Color materialColor) {
         mHeaderRectangle.setText(substanceName);
         setHeaderColor(materialColor);
 
         if (materialID != null) {
-            storeParameter("headerID", materialID.toString());
+            storeParameter("headerID", materialID);
         }
 
     }
@@ -57,12 +68,6 @@ public class HolderRectangle extends VBox implements Parameterisable {
     public String getHeaderText() {
         return mHeaderRectangle.getText();
     }
-
-    /* ****************************************************************************************************************
-     *   Children
-     * ***************************************************************************************************************/
-    //Create a VBox to hold child (impurity, CQA etc) rectangles
-    private VBox childHolderVBox = new VBox();
 
     public void setHeaderText(String text) {
         mHeaderRectangle.setText(text);
@@ -114,6 +119,10 @@ public class HolderRectangle extends VBox implements Parameterisable {
         }
     }
 
+    /* ****************************************************************************************************************
+     *   Parameters
+     * ***************************************************************************************************************/
+
     public NamedRectangle getChildRectangle(String childUUID) {
         for (Node n : childHolderVBox.getChildren()) {
             if (n instanceof NamedRectangle) {
@@ -136,12 +145,6 @@ public class HolderRectangle extends VBox implements Parameterisable {
         return namedRectangleList;
     }
 
-    /* ****************************************************************************************************************
-     *   Parameters
-     * ***************************************************************************************************************/
-
-    private Map<String, String> parameterMap = new HashMap<>();
-
     public void storeParameter(String key, String value) {
         parameterMap.put(key, value);
     }
@@ -150,17 +153,12 @@ public class HolderRectangle extends VBox implements Parameterisable {
         return (parameterMap.getOrDefault(key, ""));
     }
 
-    public List<String> getParameterKeys() {
-        return new ArrayList<>(parameterMap.keySet());
-    }
-
     /* ****************************************************************************************************************
      *   Constructors
      * ***************************************************************************************************************/
 
-    public HolderRectangle() {
-        super();
-        setUpLayout();
+    public List<String> getParameterKeys() {
+        return new ArrayList<>(parameterMap.keySet());
     }
 
     private void setUpLayout() {
