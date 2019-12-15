@@ -6,7 +6,7 @@
 
 <?import com.edenrump.ui.terminal.LinuxTextField?>
 <StackPane fx:id="screenBaseStackPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: transparent; -fx-border-color: black;" stylesheets="/css/Terminal.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edenrump.controllers.MainWindowController">
-    <AnchorPane StackPane.alignment="CENTER">
+    <AnchorPane fx:id="displayAnchorPane" StackPane.alignment="CENTER">
         <StackPane fx:id="terminalBaseStackLayer" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="15.0">
             <AnchorPane fx:id="terminalAnchorLayer" prefHeight="150.0" prefWidth="600.0" style="-fx-background-color: black;">
                 <HBox fx:id="terminalInputContainer" alignment="CENTER_LEFT" layoutX="36.0" layoutY="270.0" prefHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

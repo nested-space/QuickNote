@@ -70,7 +70,7 @@ public class QuickNote extends Application {
     private void setUpStage(Stage stage, Parent root){
         stage.setTitle(APP_NAME_URL);
         stage.getIcons().add(new Image(getClass().getResourceAsStream(APP_ICON_URL)));
-        Scene scene = new Scene(root, screen.getWidth(), screen.getHeight() + 25, Color.TRANSPARENT);
+        Scene scene = new Scene(root, screen.getWidth(), screen.getHeight(), Color.TRANSPARENT);
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);

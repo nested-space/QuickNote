@@ -4,19 +4,24 @@ import com.edenrump.config.Defaults;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.transitions.RegionTimelines;
+import com.edenrump.transitions.TimelineWrapper;
+import com.edenrump.ui.display.HolderRectangle;
 import com.edenrump.ui.terminal.LinuxTextField;
 import com.edenrump.ui.data.CommandHistory;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
@@ -69,6 +74,10 @@ public class MainWindowController implements Initializable {
      */
     public Label leftMessageDisplay;
     /**
+     * The anchor pane responsible for the visual display of tasks
+     */
+    public AnchorPane displayAnchorPane;
+    /**
      * The current stage. Used for minimising programatically.
      */
     private Stage stage;
@@ -97,6 +106,8 @@ public class MainWindowController implements Initializable {
         addStateListener();
         enterEditMode();
         terminalBaseStackLayer.getChildren().remove(LoadingPane);
+        terminalInputField.getScene().getWindow().setX(0);
+        terminalInputField.getScene().getWindow().setY(0);
     }
 
     private void addKeyListeners() {
@@ -192,16 +203,58 @@ public class MainWindowController implements Initializable {
             RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, Defaults.LARGE_WIDTH, Defaults.LARGE_HEIGHT, event -> enterEditMode()).playFromStart();
         });
 
+        handleSingleWordTerminalCommand(arguments, "show", () -> {
+            HolderRectangle task = new HolderRectangle();
+            Color faded = new Color(1, 0, 0, 0.5);
+            task.addHeaderBox("Task name", 0, faded);
+            AnchorPane.setTopAnchor(task, 15d);
+            AnchorPane.setLeftAnchor(task, 15d);
+            displayAnchorPane.getChildren().add(task);
+            task.setTranslateY(50);
+            task.setOpacity(0);
+
+            HolderRectangle task2 = new HolderRectangle();
+            task2.addHeaderBox("Task name", 0, faded);
+            AnchorPane.setTopAnchor(task2, 85d);
+            AnchorPane.setLeftAnchor(task2, 15d);
+            displayAnchorPane.getChildren().add(task2);
+            task2.setTranslateY(50);
+            task2.setOpacity(0);
+
+            Timeline t1f = RegionTimelines.opacityTimeline(task, 0, 1);
+            Timeline t2f = RegionTimelines.opacityTimeline(task2, 0, 1);
+            Timeline t1t = RegionTimelines.translationTimeline(task, 0, 50, 0, 0);
+            Timeline t2t = RegionTimelines.translationTimeline(task2, 0, 50, 0, 0);
+
+            Timeline task1all = RegionTimelines.combineTimelines(t1f, t1t);
+            Timeline task2all = RegionTimelines.combineTimelines(t2f, t2t);
+
+            Color cStart = (Color) terminalInputField.getScene().getFill();
+            Timeline bgt = RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.DARK_BACKGROUND);
+
+            RegionTimelines.createCascade(bgt, task1all, task2all);
+            task1all.play();task2all.play();bgt.play();
+        });
+
+        handleSingleWordTerminalCommand(arguments, "flash", () -> {
+            Color flash = Color.web("49e819");
+            Color cStart = (Color) terminalAnchorLayer.getBackground().getFills().get(0).getFill();
+            RegionTimelines.createFlash(terminalAnchorLayer, cStart, flash).play();
+        });
+
         handleSingleWordTerminalCommand(arguments, "darken", () -> {
-            RegionTimelines.colourTimeline(terminalInputField.getScene(), Defaults.DARK_BACKGROUND).playFromStart();
+            Color cStart = (Color) terminalInputField.getScene().getFill();
+            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.DARK_BACKGROUND).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "lighten", () -> {
-            RegionTimelines.colourTimeline(terminalInputField.getScene(), Defaults.LIGHT_BACKGROUND).playFromStart();
+            Color cStart = (Color) terminalInputField.getScene().getFill();
+            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.LIGHT_BACKGROUND).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "clear", () -> {
-            RegionTimelines.colourTimeline(terminalInputField.getScene(), Defaults.CLEAR_BACKGROUND).playFromStart();
+            Color cStart = (Color) terminalInputField.getScene().getFill();
+            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.CLEAR_BACKGROUND).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "min", () -> {
