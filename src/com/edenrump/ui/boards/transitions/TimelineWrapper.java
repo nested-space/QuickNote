@@ -1,4 +1,4 @@
-package com.edenrump.transitions;
+package com.edenrump.ui.boards.transitions;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

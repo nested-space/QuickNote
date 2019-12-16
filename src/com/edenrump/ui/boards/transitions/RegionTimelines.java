@@ -1,4 +1,4 @@
-package com.edenrump.transitions;
+package com.edenrump.ui.boards.transitions;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -21,9 +21,9 @@ import java.util.Set;
 
 public class RegionTimelines {
 
-    private static final Duration MOVEMENT_DURATION = Duration.millis(200);
-    private static final Duration SHADING_DURATION = Duration.millis(200);
-    private static final Duration DELAY_DURATION = Duration.millis(100);
+    public static final Duration MOVEMENT_DURATION = Duration.millis(200);
+    public static final Duration SHADING_DURATION = Duration.millis(200);
+    public static final Duration DELAY_DURATION = Duration.millis(100);
 
     public static Timeline opacityTimeline(Region region, double o1, double o2) {
         return new Timeline(

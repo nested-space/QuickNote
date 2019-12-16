@@ -2,6 +2,7 @@ package com.edenrump.ui.boards.contracts;
 
 import com.edenrump.ui.boards.data.BoardTicket;
 import com.edenrump.ui.boards.data.BoardTicketGroup;
+import com.edenrump.ui.boards.util.BoardSnapshot;
 import javafx.scene.layout.Region;
 
 public interface CanDisplayBoard {
@@ -9,7 +10,12 @@ public interface CanDisplayBoard {
     /**
      * Method to prompt the board to reload its content
      */
-    void clearContent();
+    void clearDisplay();
+
+    /**
+     * Method to refresh the display of the board and display all content
+     */
+    void displayAllContent();
 
     /**
      * Method to remove an entire group of objects from the board
@@ -48,4 +54,18 @@ public interface CanDisplayBoard {
      * @return the Region created from the content to be displayed
      */
     Region createDisplayableContent(BoardTicket content);
+
+    /**
+     * Method to capture a snapshot off all displayed node positions on the board
+     * @return a snapshot of the board's contents
+     */
+    BoardSnapshot getSnapshot();
+
+    /**
+     * Method to move from one layout to another
+     * @param old the old snapshot
+     * @param target the new snapshot
+     */
+    void updateDisplay(BoardSnapshot old, BoardSnapshot target);
+
 }

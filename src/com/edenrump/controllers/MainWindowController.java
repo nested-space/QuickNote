@@ -3,7 +3,7 @@ package com.edenrump.controllers;
 import com.edenrump.config.ApplicationDefaults;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
-import com.edenrump.transitions.RegionTimelines;
+import com.edenrump.ui.boards.transitions.RegionTimelines;
 import com.edenrump.ui.boards.components.BoardTicketNode;
 import com.edenrump.ui.boards.displays.GroupBoard;
 import com.edenrump.ui.boards.data.BoardTicket;
@@ -32,6 +32,8 @@ import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.edenrump.ui.boards.transitions.RegionTimelines.DELAY_DURATION;
 
 public class MainWindowController implements Initializable {
 
@@ -277,7 +279,7 @@ public class MainWindowController implements Initializable {
                     RegionTimelines.combineTimelines(
                             RegionTimelines.opacityTimeline(regions[i], 0, 1),
                             RegionTimelines.translationTimeline(regions[i], 0, 20, 0, 0)
-                    ), Duration.millis(i * com.edenrump.ui.boards.animation.Defaults.ANIMATION_DELAY));
+                    ), Duration.millis(i * DELAY_DURATION.toMillis()));
             global.getKeyFrames().addAll(translateAndFade.getKeyFrames());
         }
         return global;
