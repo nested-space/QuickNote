@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * Class that contains application defaults. Implements the singleton design pattern
  */
-public final class Defaults {
+public final class ApplicationDefaults {
 
     /**
      * The default string displayed by the terminal in display mode
@@ -65,16 +65,16 @@ public final class Defaults {
     /**
      * The name of the application
      */
-    public static final String APP_NAME_URL = (String) Defaults.getApplication_defaults().get("app.name");
+    public static final String APP_NAME_URL = (String) ApplicationDefaults.getApplication_defaults().get("app.name");
     /**
      * The relative location of the app icon image
      */
-    public static final String APP_ICON_URL = (String) Defaults.getApplication_defaults().get("app.icon");
+    public static final String APP_ICON_URL = (String) ApplicationDefaults.getApplication_defaults().get("app.icon");
 
     /**
      * Constructor ensures properties are only loaded once
      */
-    private Defaults() {
+    private ApplicationDefaults() {
         application_defaults = getApplication_defaults();
     }
 
@@ -87,7 +87,7 @@ public final class Defaults {
         if (application_defaults == null) {
             application_defaults = new Properties();
             try {
-                application_defaults.load(Defaults.class.getResourceAsStream("/config/application.properties"));
+                application_defaults.load(ApplicationDefaults.class.getResourceAsStream("/config/application.properties"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

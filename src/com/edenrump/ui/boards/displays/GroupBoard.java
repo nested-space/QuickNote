@@ -1,13 +1,13 @@
-package com.edenrump.ui.display.board;
+package com.edenrump.ui.boards.displays;
 
 import com.edenrump.transitions.RegionTimelines;
-import com.edenrump.ui.display.board.animation.Defaults;
-import com.edenrump.ui.display.board.data.BoardTicket;
-import com.edenrump.ui.display.board.data.BoardTicketGroup;
-import com.edenrump.ui.display.board.data.LayoutType;
-import com.edenrump.ui.display.components.HolderRectangle;
-import com.edenrump.ui.display.contracts.Animatable;
-import com.edenrump.ui.display.contracts.ContentDisplayable;
+import com.edenrump.ui.boards.animation.Defaults;
+import com.edenrump.ui.boards.data.BoardTicket;
+import com.edenrump.ui.boards.data.BoardTicketGroup;
+import com.edenrump.ui.boards.data.LayoutType;
+import com.edenrump.ui.boards.components.HolderRectangle;
+import com.edenrump.ui.boards.contracts.Animatable;
+import com.edenrump.ui.boards.contracts.CanDisplayBoard;
 import javafx.animation.Timeline;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Class representing a board designed to display content separated into groups of named buckets
  */
-public class GroupBoard extends BoardBase implements Animatable, ContentDisplayable {
+public class GroupBoard extends BoardBase implements Animatable, CanDisplayBoard {
 
     /**
      * Whether transitions in board such as adding, moving or removing an item should be animated

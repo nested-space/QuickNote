@@ -1,4 +1,4 @@
-package com.edenrump.ui.display.contracts;
+package com.edenrump.ui.boards.contracts;
 
 import javafx.animation.Timeline;
 

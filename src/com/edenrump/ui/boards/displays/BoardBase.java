@@ -1,4 +1,4 @@
-package com.edenrump.ui.display.board;
+package com.edenrump.ui.boards.displays;
 
 import javafx.scene.layout.AnchorPane;
 

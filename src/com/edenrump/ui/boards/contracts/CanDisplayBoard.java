@@ -1,10 +1,10 @@
-package com.edenrump.ui.display.contracts;
+package com.edenrump.ui.boards.contracts;
 
-import com.edenrump.ui.display.board.data.BoardTicket;
-import com.edenrump.ui.display.board.data.BoardTicketGroup;
+import com.edenrump.ui.boards.data.BoardTicket;
+import com.edenrump.ui.boards.data.BoardTicketGroup;
 import javafx.scene.layout.Region;
 
-public interface ContentDisplayable {
+public interface CanDisplayBoard {
 
     /**
      * Method to prompt the board to reload its content

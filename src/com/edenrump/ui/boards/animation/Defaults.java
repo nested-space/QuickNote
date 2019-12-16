@@ -1,4 +1,4 @@
-package com.edenrump.ui.display.board.animation;
+package com.edenrump.ui.boards.animation;
 
 public class Defaults {
 

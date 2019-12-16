@@ -17,8 +17,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-import static com.edenrump.config.Defaults.APP_ICON_URL;
-import static com.edenrump.config.Defaults.APP_NAME_URL;
+import static com.edenrump.config.ApplicationDefaults.APP_ICON_URL;
+import static com.edenrump.config.ApplicationDefaults.APP_NAME_URL;
 
 public class QuickNote extends Application {
 

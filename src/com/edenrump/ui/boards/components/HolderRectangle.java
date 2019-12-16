@@ -1,4 +1,4 @@
-package com.edenrump.ui.display.components;
+package com.edenrump.ui.boards.components;
 
 import com.edenrump.ui.Parameterisable;
 import javafx.geometry.Insets;

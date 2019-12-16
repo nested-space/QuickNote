@@ -1,13 +1,14 @@
 package com.edenrump.controllers;
 
-import com.edenrump.config.Defaults;
+import com.edenrump.config.ApplicationDefaults;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.transitions.RegionTimelines;
-import com.edenrump.ui.display.board.GroupBoard;
-import com.edenrump.ui.display.board.data.BoardTicket;
-import com.edenrump.ui.display.board.data.BoardTicketGroup;
-import com.edenrump.ui.display.board.data.LayoutType;
+import com.edenrump.ui.boards.components.BoardTicketNode;
+import com.edenrump.ui.boards.displays.GroupBoard;
+import com.edenrump.ui.boards.data.BoardTicket;
+import com.edenrump.ui.boards.data.BoardTicketGroup;
+import com.edenrump.ui.boards.data.LayoutType;
 import com.edenrump.ui.terminal.controls.LinuxTextField;
 import com.edenrump.ui.terminal.data.CommandHistory;
 import javafx.animation.PauseTransition;
@@ -116,6 +117,14 @@ public class MainWindowController implements Initializable {
         terminalInputField.getScene().getWindow().setX(0);
         terminalInputField.getScene().getWindow().setY(0);
         groupBoard = new GroupBoard(displayAnchorPane);
+
+        BoardTicketNode boardTicket = new BoardTicketNode("id", "Really Important Ticket With a Very Long Title");
+        AnchorPane.setLeftAnchor(boardTicket, 100d);
+        AnchorPane.setTopAnchor(boardTicket, 200d);
+        boardTicket.addTitleValuePair("Important", "value");
+        boardTicket.addTitleValuePair("Less important", "no value");
+        displayAnchorPane.getChildren().add(boardTicket);
+
     }
 
     private void addKeyListeners() {
@@ -128,7 +137,7 @@ public class MainWindowController implements Initializable {
             if (APP_STATE.get() == INPUT_STATE) {
                 if (e.getCode() == KeyCode.ESCAPE) {
                     commandHistory.resetCaret();
-                    enterDisplayMode(Defaults.DISPLAY_INDICATOR);
+                    enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
                 }
             }
         });
@@ -197,18 +206,18 @@ public class MainWindowController implements Initializable {
         });
 
         handleSingleWordTerminalCommand(arguments, "wide", () -> {
-            enterDisplayMode(Defaults.DISPLAY_INDICATOR);
-            RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, Defaults.WIDE_WIDTH, Defaults.WIDE_HEIGHT, event -> enterEditMode()).playFromStart();
+            enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
+            RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, ApplicationDefaults.WIDE_WIDTH, ApplicationDefaults.WIDE_HEIGHT, event -> enterEditMode()).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "small", () -> {
-            enterDisplayMode(Defaults.DISPLAY_INDICATOR);
-            RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, Defaults.SMALL_WIDTH, Defaults.SMALL_HEIGHT, event -> enterEditMode()).playFromStart();
+            enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
+            RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, ApplicationDefaults.SMALL_WIDTH, ApplicationDefaults.SMALL_HEIGHT, event -> enterEditMode()).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "large", () -> {
-            enterDisplayMode(Defaults.DISPLAY_INDICATOR);
-            RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, Defaults.LARGE_WIDTH, Defaults.LARGE_HEIGHT, event -> enterEditMode()).playFromStart();
+            enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
+            RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, ApplicationDefaults.LARGE_WIDTH, ApplicationDefaults.LARGE_HEIGHT, event -> enterEditMode()).playFromStart();
         });
 
         groupBoard.setTransitionsAnimated(true);
@@ -231,17 +240,17 @@ public class MainWindowController implements Initializable {
 
         handleSingleWordTerminalCommand(arguments, "darken", () -> {
             Color cStart = (Color) terminalInputField.getScene().getFill();
-            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.DARK_BACKGROUND).playFromStart();
+            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, ApplicationDefaults.DARK_BACKGROUND).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "lighten", () -> {
             Color cStart = (Color) terminalInputField.getScene().getFill();
-            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.LIGHT_BACKGROUND).playFromStart();
+            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, ApplicationDefaults.LIGHT_BACKGROUND).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "clear", () -> {
             Color cStart = (Color) terminalInputField.getScene().getFill();
-            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, Defaults.CLEAR_BACKGROUND).playFromStart();
+            RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, ApplicationDefaults.CLEAR_BACKGROUND).playFromStart();
         });
 
         handleSingleWordTerminalCommand(arguments, "min", () -> {
@@ -268,7 +277,7 @@ public class MainWindowController implements Initializable {
                     RegionTimelines.combineTimelines(
                             RegionTimelines.opacityTimeline(regions[i], 0, 1),
                             RegionTimelines.translationTimeline(regions[i], 0, 20, 0, 0)
-                    ), Duration.millis(i * com.edenrump.ui.display.board.animation.Defaults.ANIMATION_DELAY));
+                    ), Duration.millis(i * com.edenrump.ui.boards.animation.Defaults.ANIMATION_DELAY));
             global.getKeyFrames().addAll(translateAndFade.getKeyFrames());
         }
         return global;
@@ -278,10 +287,10 @@ public class MainWindowController implements Initializable {
         int selection;
         try {
             selection = Integer.parseInt(arguments.get(0).substring(1));
-            if (!taskMap.containsKey(selection)) return Defaults.NO_TASK_OF_THAT_NUMBER;
+            if (!taskMap.containsKey(selection)) return ApplicationDefaults.NO_TASK_OF_THAT_NUMBER;
         } catch (NumberFormatException n) {
             n.printStackTrace();
-            return Defaults.SELECTION_ERROR;
+            return ApplicationDefaults.SELECTION_ERROR;
         }
         return "Selected task: " + taskMap.get(selection).getKey().getName();
     }

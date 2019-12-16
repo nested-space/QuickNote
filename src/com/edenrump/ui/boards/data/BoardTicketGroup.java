@@ -1,4 +1,4 @@
-package com.edenrump.ui.display.board.data;
+package com.edenrump.ui.boards.data;
 
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
