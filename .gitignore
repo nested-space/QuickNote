@@ -28,6 +28,7 @@ hs_err_pid*
 
 # build files
 out/
+target/
 
 # intellij files
 .idea/
