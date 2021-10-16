@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/fxQuickNote.iml" filepath="$PROJECT_DIR$/fxQuickNote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QuickNote.iml" filepath="$PROJECT_DIR$/QuickNote.iml" />
     </modules>
   </component>
 </project>

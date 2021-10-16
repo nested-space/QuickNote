@@ -1,9 +1,9 @@
 package com.edenrump.ui.terminal.controls;
 
-import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
+import javafx.scene.control.skin.TextFieldSkin;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -26,7 +26,7 @@ import javafx.scene.paint.Color;
  */
 public class LinuxTextField extends TextField {
 
-    private TextFieldSkin mSkin = new TextFieldCaretControlSkin(this, new Color(1, 1, 1, 0.5));
+    private final TextFieldSkin  mSkin = new TextFieldSkin(this);
     /**
      * AnimationTimer periodically preventing cursor from blinking. This may have the effect of removing it..
      */
@@ -72,21 +72,4 @@ public class LinuxTextField extends TextField {
         timer.stop();
         mSkin.setCaretAnimating(true);
     }
-
-    /**
-     * Class representing a TextFieldSkin that has been restyled to look like a linux terminal
-     */
-    private static class TextFieldCaretControlSkin extends TextFieldSkin {
-        public TextFieldCaretControlSkin(TextField textField, Color caretColor) {
-            super(textField);
-            caretPath.strokeProperty().unbind();
-            caretPath.fillProperty().unbind();
-            caretPath.setStrokeWidth(6);
-            caretPath.setStroke(caretColor);
-            caretPath.setFill(caretColor);
-            caretPath.setTranslateX(4);
-        }
-    }
-
-
 }
