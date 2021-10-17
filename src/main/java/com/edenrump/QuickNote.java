@@ -52,7 +52,7 @@ public class QuickNote extends Application {
         TaskCluster taskCluster = tcl.loadFromFile("tasks");
 
         //create window
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuickNoteMainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/QuickNoteMainWindow.fxml"));
         Parent root = fxmlLoader.load();
         MainWindowController windowController = fxmlLoader.getController();
         windowController.setStage(stage);
@@ -69,6 +69,7 @@ public class QuickNote extends Application {
      * @param root  the root element of the parent stage
      */
     private void setUpStage(Stage stage, Parent root) {
+        String name = APP_NAME_URL;
         stage.setTitle(APP_NAME_URL);
         stage.getIcons().add(new Image(getClass().getResourceAsStream(APP_ICON_URL)));
         Scene scene = new Scene(root, screen.getWidth(), screen.getHeight(), Color.TRANSPARENT);

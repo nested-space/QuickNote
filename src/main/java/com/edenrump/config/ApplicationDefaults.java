@@ -1,5 +1,6 @@
 package com.edenrump.config;
 
+import com.edenrump.QuickNote;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -87,7 +88,7 @@ public final class ApplicationDefaults {
         if (application_defaults == null) {
             application_defaults = new Properties();
             try {
-                application_defaults.load(ApplicationDefaults.class.getResourceAsStream("/config/application.properties"));
+                application_defaults.load(QuickNote.class.getResourceAsStream("config/application.properties"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
