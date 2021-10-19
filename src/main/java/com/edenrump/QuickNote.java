@@ -25,7 +25,7 @@ public class QuickNote extends Application {
     /**
      * The screen bounds of the primary screen
      */
-    private Rectangle2D screen = Screen.getPrimary().getBounds();
+    private final Rectangle2D screen = Screen.getPrimary().getBounds();
 
     /**
      * The entry point for this application
@@ -69,7 +69,6 @@ public class QuickNote extends Application {
      * @param root  the root element of the parent stage
      */
     private void setUpStage(Stage stage, Parent root) {
-        String name = APP_NAME_URL;
         stage.setTitle(APP_NAME_URL);
         stage.getIcons().add(new Image(getClass().getResourceAsStream(APP_ICON_URL)));
         Scene scene = new Scene(root, screen.getWidth(), screen.getHeight(), Color.TRANSPARENT);

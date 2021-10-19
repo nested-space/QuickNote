@@ -9,18 +9,18 @@ public class Task {
     /**
      * The database of the task
      */
-    private String _id;
+    private final String _id;
 
     /**
      * The name (i.e. display name) of the task
      * It is not recommended that this is longer than 40 characters
      */
-    private String name;
+    private final String name;
 
     /**
      * The date the task was created
      */
-    private Date created;
+    private final Date created;
     /**
      * The date the task was completed
      */
@@ -28,7 +28,7 @@ public class Task {
     /**
      * The id of the user who created the task.
      */
-    private String createdBy_Id;
+    private final String createdBy_Id;
     /**
      * The id of the user who owns the task
      */
@@ -337,12 +337,12 @@ public class Task {
         /**
          * The location of the attachment
          */
-        private String location;
+        private final String location;
 
         /**
          * The filetype of the attachment
          */
-        private String type;
+        private final String type;
 
         /**
          * Method to create a new attachment using the location url and filetype
@@ -446,12 +446,12 @@ public class Task {
         /**
          * Whether the item is complete
          */
-        private boolean done;
+        private final boolean done;
 
         /**
          * The text (name or description) of the item
          */
-        private String text;
+        private final String text;
         private int number;
 
         /**
@@ -520,7 +520,7 @@ public class Task {
         /**
          * The date the comment was created
          */
-        private Date created;
+        private final Date created;
 
         /**
          * Method to create a comment using defined userId, content and created date

@@ -9,7 +9,7 @@ public class CommandHistory {
 
     private int caretDepth = 0;
     private int numberOfCommands = 0;
-    private String[] commandHistory;
+    private final String[] commandHistory;
 
     public CommandHistory(int maxNumber) {
         commandHistory = new String[maxNumber];

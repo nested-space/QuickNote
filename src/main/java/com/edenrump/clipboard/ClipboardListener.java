@@ -22,12 +22,12 @@ public class ClipboardListener {
     /**
      * System clipboard to which the listener listens
      */
-    private Clipboard clipboard = Clipboard.getSystemClipboard();
+    private final Clipboard clipboard = Clipboard.getSystemClipboard();
 
     /**
      * Storage for old clipboard content to determine whether a change in content has been made
      */
-    private ClipboardContent oldContent = new ClipboardContent();
+    private final ClipboardContent oldContent = new ClipboardContent();
 
     @Deprecated
     /**

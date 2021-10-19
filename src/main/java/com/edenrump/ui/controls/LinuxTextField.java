@@ -26,7 +26,7 @@ import javafx.scene.paint.Color;
  */
 public class LinuxTextField extends TextField {
 
-    private final TextFieldSkin  mSkin = new TextFieldSkin(this);
+    private final TextFieldSkin mSkin = new TextFieldSkin(this);
     /**
      * AnimationTimer periodically preventing cursor from blinking. This may have the effect of removing it..
      */

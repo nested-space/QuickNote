@@ -8,7 +8,7 @@ public class TimelineWrapper {
     /**
      * The current timeline
      */
-    private Timeline timeline;
+    private final Timeline timeline;
 
     /**
      * Contructor creates a new wrapper
