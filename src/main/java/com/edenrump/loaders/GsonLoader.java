@@ -1,5 +1,7 @@
 package com.edenrump.loaders;
 
+import java.io.File;
+
 public abstract class GsonLoader {
 
     /**
@@ -7,5 +9,5 @@ public abstract class GsonLoader {
      */
     protected final static String FILE_LOAD_ERROR = "Error Loading File";
 
-    abstract Object loadFromFile(String filename);
+    abstract Object loadFromFile(File file);
 }

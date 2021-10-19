@@ -15,7 +15,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static com.edenrump.config.ApplicationDefaults.APP_ICON_URL;
 import static com.edenrump.config.ApplicationDefaults.APP_NAME_URL;
@@ -43,13 +45,15 @@ public class QuickNote extends Application {
      * @throws IOException an exception thrown if the fxmlLoader cannot load the parent element.
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, URISyntaxException {
         // load the terminal font.
         Font.loadFont(QuickNote.class.getClassLoader().getResourceAsStream("css/RedHatText-Regular.ttf"), 10);
 
         //load tasks
         TaskClusterLoader tcl = new TaskClusterLoader();
-        TaskCluster taskCluster = tcl.loadFromFile("tasks");
+
+        TaskCluster taskCluster = tcl.loadFromFile(
+                new File(getClass().getResource("seedFiles/tasks.json").toURI()));
 
         //create window
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/QuickNoteMainWindow.fxml"));

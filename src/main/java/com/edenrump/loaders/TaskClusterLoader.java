@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -14,12 +15,12 @@ import java.io.FileReader;
 public class TaskClusterLoader extends GsonLoader {
 
     @Override
-    public TaskCluster loadFromFile(String filename) {
+    public TaskCluster loadFromFile(File file) {
         try {
             GsonBuilder builder = new GsonBuilder();
             Gson gson = builder.create();
             BufferedReader bufferedReader = new BufferedReader(
-                    new FileReader(filename + ".json"));
+                    new FileReader(file));
             return gson.fromJson(bufferedReader, TaskCluster.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
