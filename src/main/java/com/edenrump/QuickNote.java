@@ -11,11 +11,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
-
-import static com.edenrump.config.ApplicationDefaults.APP_ICON_URL;
-import static com.edenrump.config.ApplicationDefaults.APP_NAME_URL;
 
 public class QuickNote extends Application {
 
@@ -59,8 +55,8 @@ public class QuickNote extends Application {
      * @param root  the root element of the parent stage
      */
     private void setUpStage(Stage stage, Parent root) {
-        stage.setTitle(APP_NAME_URL);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream(APP_ICON_URL)));
+        stage.setTitle("Quick Note");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("img/tab.png")));
         Scene scene = new Scene(root, screen.getWidth(), screen.getHeight(), Color.TRANSPARENT);
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);

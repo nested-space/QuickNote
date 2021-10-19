@@ -63,14 +63,6 @@ public final class ApplicationDefaults {
      * Static copy of application defaults loaded from properties file.
      */
     private static Properties application_defaults;
-    /**
-     * The name of the application
-     */
-    public static final String APP_NAME_URL = (String) ApplicationDefaults.getApplication_defaults().get("app.name");
-    /**
-     * The relative location of the app icon image
-     */
-    public static final String APP_ICON_URL = (String) ApplicationDefaults.getApplication_defaults().get("app.icon");
 
     /**
      * Constructor ensures properties are only loaded once

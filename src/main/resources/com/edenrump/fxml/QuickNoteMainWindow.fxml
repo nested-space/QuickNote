@@ -3,7 +3,5 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <StackPane style="-fx-background-color: transparent; -fx-border-color: black;" stylesheets="@../css/Terminal.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
-    <AnchorPane fx:id="displayAnchorPane" StackPane.alignment="CENTER">
         <fx:include source="OnScreenTerminal.fxml"/>
-    </AnchorPane>
 </StackPane>

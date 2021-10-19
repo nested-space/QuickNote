@@ -107,7 +107,7 @@ public class TerminalController {
         terminalInputField.setOnKeyPressed(event -> {
             enterEditMode();
             if (event.getCode() == KeyCode.ENTER) {
-                parseInput(terminalInputField.getText());
+                parseInput(terminalInputField.getText().toLowerCase());
             }
 
             if (event.getCode() == KeyCode.UP) {
