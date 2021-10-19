@@ -259,7 +259,6 @@ public class TerminalController {
         terminalMessageDisplay.getChildren().clear();
         int counter = 0;
         Label title = new Label(cluster.getName());
-        title.setId("title");
         Separator s = new Separator(Orientation.HORIZONTAL);
         HBox.setHgrow(s, Priority.ALWAYS);
         HBox titleContainer = new HBox(title, s);
