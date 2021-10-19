@@ -7,6 +7,6 @@ module com.edenrump.quicknote {
     opens com.edenrump.controllers to javafx.fxml;
     opens com.edenrump.models.task to com.google.gson;
 
-    exports com.edenrump.ui.terminal.controls to javafx.fxml;
+    exports com.edenrump.ui.controls to javafx.fxml;
     exports com.edenrump;
 }

@@ -1,4 +1,4 @@
-package com.edenrump.ui.terminal.controls;
+package com.edenrump.ui.controls;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;

@@ -9,10 +9,9 @@ import com.edenrump.ui.boards.displays.GroupBoard;
 import com.edenrump.ui.boards.data.BoardTicket;
 import com.edenrump.ui.boards.data.BoardTicketGroup;
 import com.edenrump.ui.boards.data.LayoutType;
-import com.edenrump.ui.terminal.controls.LinuxTextField;
-import com.edenrump.ui.terminal.data.CommandHistory;
+import com.edenrump.ui.controls.LinuxTextField;
+import com.edenrump.models.terminal.CommandHistory;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -32,8 +31,6 @@ import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.edenrump.ui.boards.transitions.RegionTimelines.DELAY_DURATION;
 
 public class MainWindowController implements Initializable {
 
@@ -62,7 +59,7 @@ public class MainWindowController implements Initializable {
      */
     public StackPane terminalBaseStackLayer;
     /**
-     * The anchorpane that holds the terminal dispaly
+     * The AnchorPane that holds the terminal display
      */
     public AnchorPane terminalAnchorLayer;
     /**
@@ -82,23 +79,23 @@ public class MainWindowController implements Initializable {
      */
     public AnchorPane displayAnchorPane;
     /**
-     * The current stage. Used for minimising programatically.
+     * The current stage. Used for minimising programmatically.
      */
     private Stage stage;
     /**
      * The current state of the app
      */
-    private IntegerProperty APP_STATE = new SimpleIntegerProperty(-1);
+    private final IntegerProperty APP_STATE = new SimpleIntegerProperty(-1);
     /**
      * The command line history
      */
-    private CommandHistory commandHistory = new CommandHistory(7);
+    private final CommandHistory commandHistory = new CommandHistory(7);
 
     private GroupBoard groupBoard;
     /**
      * A map of all tasks available to the user
      */
-    private Map<Integer, Pair<Task, Label>> taskMap = new HashMap<>();
+    private final Map<Integer, Pair<Task, Label>> taskMap = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -227,13 +224,10 @@ public class MainWindowController implements Initializable {
         btg.addContent(new BoardTicket("Title", new HashMap<>(), "Id"));
         System.out.println(btg.getContents().size());
 
-        handleSingleWordTerminalCommand(arguments, "show", () -> {
-            groupBoard.addContent(btg);
-        });
+        handleSingleWordTerminalCommand(arguments, "show", () -> groupBoard.addContent(btg));
 
-        handleSingleWordTerminalCommand(arguments, "hide", () -> {
-            groupBoard.removeContent(btg);
-        });
+        handleSingleWordTerminalCommand(arguments, "hide", () -> groupBoard.removeContent(btg));
+
         handleSingleWordTerminalCommand(arguments, "flash", () -> {
             Color flash = Color.web("49e819");
             Color cStart = (Color) terminalAnchorLayer.getBackground().getFills().get(0).getFill();
@@ -255,9 +249,7 @@ public class MainWindowController implements Initializable {
             RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, ApplicationDefaults.CLEAR_BACKGROUND).playFromStart();
         });
 
-        handleSingleWordTerminalCommand(arguments, "min", () -> {
-            stage.setIconified(true);
-        });
+        handleSingleWordTerminalCommand(arguments, "min", () -> stage.setIconified(true));
 
         if (arguments.get(0).equals("history") && arguments.size() == 1) {
             enterDisplayMode(Arrays.toString(commandHistory.getHistory()));
@@ -269,20 +261,6 @@ public class MainWindowController implements Initializable {
         //TODO: other arguments
 
         setInputText("");
-    }
-
-    private Timeline fadeIn(Region... regions) {
-        Timeline global = new Timeline();
-
-        for (int i = 0; i < regions.length; i++) {
-            Timeline translateAndFade = RegionTimelines.delay(
-                    RegionTimelines.combineTimelines(
-                            RegionTimelines.opacityTimeline(regions[i], 0, 1),
-                            RegionTimelines.translationTimeline(regions[i], 0, 20, 0, 0)
-                    ), Duration.millis(i * DELAY_DURATION.toMillis()));
-            global.getKeyFrames().addAll(translateAndFade.getKeyFrames());
-        }
-        return global;
     }
 
     private String handleSelectionTerminalCommand(List<String> arguments) {

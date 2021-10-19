@@ -1,7 +1,10 @@
-package com.edenrump.ui.terminal.data;
+package com.edenrump.models.terminal;
 
 import java.util.Arrays;
 
+/**
+ * A record of previous commands executed by a linux-style terminal
+ */
 public class CommandHistory {
 
     private int caretDepth = 0;
