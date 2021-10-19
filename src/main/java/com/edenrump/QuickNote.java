@@ -1,8 +1,5 @@
 package com.edenrump;
 
-import com.edenrump.controllers.MainWindowController;
-import com.edenrump.loaders.TaskClusterLoader;
-import com.edenrump.models.task.TaskCluster;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -15,9 +12,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static com.edenrump.config.ApplicationDefaults.APP_ICON_URL;
 import static com.edenrump.config.ApplicationDefaults.APP_NAME_URL;
@@ -45,22 +40,13 @@ public class QuickNote extends Application {
      * @throws IOException an exception thrown if the fxmlLoader cannot load the parent element.
      */
     @Override
-    public void start(Stage stage) throws IOException, URISyntaxException {
+    public void start(Stage stage) throws IOException {
         // load the terminal font.
         Font.loadFont(QuickNote.class.getClassLoader().getResourceAsStream("css/RedHatText-Regular.ttf"), 10);
-
-        //load tasks
-        TaskClusterLoader tcl = new TaskClusterLoader();
-
-        TaskCluster taskCluster = tcl.loadFromFile(
-                new File(getClass().getResource("seedFiles/tasks.json").toURI()));
 
         //create window
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/QuickNoteMainWindow.fxml"));
         Parent root = fxmlLoader.load();
-        MainWindowController windowController = fxmlLoader.getController();
-        windowController.setStage(stage);
-        windowController.loadCluster(taskCluster);
 
         setUpStage(stage, root);
         stage.show();

@@ -1,6 +1,8 @@
 package com.edenrump.controllers;
 
+import com.edenrump.QuickNote;
 import com.edenrump.config.ApplicationDefaults;
+import com.edenrump.loaders.TaskClusterLoader;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.models.terminal.CommandHistory;
@@ -10,7 +12,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -18,16 +19,15 @@ import javafx.scene.control.Separator;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.net.URL;
+import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainWindowController implements Initializable {
+public class TerminalController {
 
     /**
      * The application state associated with terminal user input
@@ -66,14 +66,6 @@ public class MainWindowController implements Initializable {
      */
     public Label leftMessageDisplay;
     /**
-     * The anchor pane responsible for the visual display of tasks
-     */
-    public AnchorPane displayAnchorPane;
-    /**
-     * The current stage. Used for minimising programmatically.
-     */
-    private Stage stage;
-    /**
      * The current state of the app
      */
     private final IntegerProperty APP_STATE = new SimpleIntegerProperty(-1);
@@ -82,46 +74,36 @@ public class MainWindowController implements Initializable {
      */
     private final CommandHistory commandHistory = new CommandHistory(7);
 
+    private TaskCluster taskCluster = null;
+
     /**
      * A map of all tasks available to the user
      */
     private final Map<Integer, Pair<Task, Label>> taskMap = new HashMap<>();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         terminalInputField.setEditable(false);
-        Platform.runLater(() -> {
-            PauseTransition pt = new PauseTransition(Duration.seconds(0.5));
-            pt.setOnFinished((e) -> go());
-            pt.play();
-        });
-    }
 
-    public void go() {
-        terminalInputField.setEditable(true);
+        TaskClusterLoader tcl = new TaskClusterLoader();
+        try {
+            taskCluster = tcl.loadFromFile(
+                    new File(QuickNote.class.getResource("seedFiles/tasks.json").toURI()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Platform.exit();
+        }
+        loadCluster(taskCluster);
+
         addKeyListeners();
         addStateListener();
         enterEditMode();
-        terminalBaseStackLayer.getChildren().remove(LoadingPane);
-        terminalInputField.getScene().getWindow().setX(0);
-        terminalInputField.getScene().getWindow().setY(0);
+
+
+        terminalInputField.setEditable(true);
     }
 
     private void addKeyListeners() {
-        terminalInputField.getScene().setOnKeyPressed(e -> {
-            if (APP_STATE.get() == DISPLAY_STATE && e.getCode() != KeyCode.ENTER) {
-                System.out.println("Scene Triggered by: " + e.getCode());
-                //TODO: parse whether keystroke is edit-enabling key stroke, or not
-                enterEditMode();
-            }
-            if (APP_STATE.get() == INPUT_STATE) {
-                if (e.getCode() == KeyCode.ESCAPE) {
-                    commandHistory.resetCaret();
-                    enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
-                }
-            }
-        });
-
         terminalInputField.setOnKeyPressed(event -> {
             enterEditMode();
             if (event.getCode() == KeyCode.ENTER) {
@@ -215,8 +197,6 @@ public class MainWindowController implements Initializable {
             RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, ApplicationDefaults.CLEAR_BACKGROUND).playFromStart();
         });
 
-        handleSingleWordTerminalCommand(arguments, "min", () -> stage.setIconified(true));
-
         if (arguments.get(0).equals("history") && arguments.size() == 1) {
             enterDisplayMode(Arrays.toString(commandHistory.getHistory()));
             return;
@@ -277,7 +257,6 @@ public class MainWindowController implements Initializable {
 
     public void loadCluster(TaskCluster cluster) {
         terminalMessageDisplay.getChildren().clear();
-
         int counter = 0;
         Label title = new Label(cluster.getName());
         title.setId("title");
@@ -295,14 +274,8 @@ public class MainWindowController implements Initializable {
         }
         terminalMessageDisplay.getChildren().add(tasks);
 
-    }
 
-    /**
-     * Method to set the current stage
-     *
-     * @param stage the current stage
-     */
-    public void setStage(Stage stage) {
-        this.stage = stage;
+        terminalBaseStackLayer.getChildren().remove(LoadingPane);
+
     }
 }
