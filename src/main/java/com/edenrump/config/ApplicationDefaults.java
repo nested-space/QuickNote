@@ -59,33 +59,4 @@ public final class ApplicationDefaults {
      * The default height of the terminal in "large" mode
      */
     public static double LARGE_HEIGHT = 500;
-    /**
-     * Static copy of application defaults loaded from properties file.
-     */
-    private static Properties application_defaults;
-
-    /**
-     * Constructor ensures properties are only loaded once
-     */
-    private ApplicationDefaults() {
-        application_defaults = getApplication_defaults();
-    }
-
-    /**
-     * Method to get the application defaults properties object
-     *
-     * @return the application defaults properties object
-     */
-    private static Properties getApplication_defaults() {
-        if (application_defaults == null) {
-            application_defaults = new Properties();
-            try {
-                application_defaults.load(QuickNote.class.getResourceAsStream("config/application.properties"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return application_defaults;
-    }
-
 }
