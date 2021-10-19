@@ -4,7 +4,7 @@ import com.edenrump.config.ApplicationDefaults;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.models.terminal.CommandHistory;
-import com.edenrump.ui.boards.transitions.RegionTimelines;
+import com.edenrump.ui.transitions.RegionTimelines;
 import com.edenrump.ui.controls.LinuxTextField;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
