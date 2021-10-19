@@ -3,14 +3,9 @@ package com.edenrump.controllers;
 import com.edenrump.config.ApplicationDefaults;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
-import com.edenrump.ui.boards.transitions.RegionTimelines;
-import com.edenrump.ui.boards.components.BoardTicketNode;
-import com.edenrump.ui.boards.displays.GroupBoard;
-import com.edenrump.ui.boards.data.BoardTicket;
-import com.edenrump.ui.boards.data.BoardTicketGroup;
-import com.edenrump.ui.boards.data.LayoutType;
-import com.edenrump.ui.controls.LinuxTextField;
 import com.edenrump.models.terminal.CommandHistory;
+import com.edenrump.ui.boards.transitions.RegionTimelines;
+import com.edenrump.ui.controls.LinuxTextField;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
@@ -46,10 +41,6 @@ public class MainWindowController implements Initializable {
      * Container for all messages to be displayed via the terminal
      */
     public VBox terminalMessageDisplay;
-    /**
-     * The base pane on which all other panes are layered
-     */
-    public StackPane screenBaseStackPane;
     /**
      * The loading pane to be displayed when the program is loading and not available for user interaction
      */
@@ -91,7 +82,6 @@ public class MainWindowController implements Initializable {
      */
     private final CommandHistory commandHistory = new CommandHistory(7);
 
-    private GroupBoard groupBoard;
     /**
      * A map of all tasks available to the user
      */
@@ -115,15 +105,6 @@ public class MainWindowController implements Initializable {
         terminalBaseStackLayer.getChildren().remove(LoadingPane);
         terminalInputField.getScene().getWindow().setX(0);
         terminalInputField.getScene().getWindow().setY(0);
-        groupBoard = new GroupBoard(displayAnchorPane);
-
-        BoardTicketNode boardTicket = new BoardTicketNode("id", "Really Important Ticket With a Very Long Title");
-        AnchorPane.setLeftAnchor(boardTicket, 100d);
-        AnchorPane.setTopAnchor(boardTicket, 200d);
-        boardTicket.addTitleValuePair("Important", "value");
-        boardTicket.addTitleValuePair("Less important", "no value");
-        displayAnchorPane.getChildren().add(boardTicket);
-
     }
 
     private void addKeyListeners() {
@@ -219,21 +200,6 @@ public class MainWindowController implements Initializable {
             RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, ApplicationDefaults.LARGE_WIDTH, ApplicationDefaults.LARGE_HEIGHT, event -> enterEditMode()).playFromStart();
         });
 
-        groupBoard.setTransitionsAnimated(true);
-        BoardTicketGroup btg = new BoardTicketGroup("ID", LayoutType.CLUSTER);
-        btg.addContent(new BoardTicket("Title", new HashMap<>(), "Id"));
-        System.out.println(btg.getContents().size());
-
-        handleSingleWordTerminalCommand(arguments, "show", () -> groupBoard.addContent(btg));
-
-        handleSingleWordTerminalCommand(arguments, "hide", () -> groupBoard.removeContent(btg));
-
-        handleSingleWordTerminalCommand(arguments, "flash", () -> {
-            Color flash = Color.web("49e819");
-            Color cStart = (Color) terminalAnchorLayer.getBackground().getFills().get(0).getFill();
-            RegionTimelines.createFlash(terminalAnchorLayer, cStart, flash).play();
-        });
-
         handleSingleWordTerminalCommand(arguments, "darken", () -> {
             Color cStart = (Color) terminalInputField.getScene().getFill();
             RegionTimelines.createColourChange(terminalInputField.getScene(), cStart, ApplicationDefaults.DARK_BACKGROUND).playFromStart();
@@ -258,7 +224,6 @@ public class MainWindowController implements Initializable {
             parseHistory(arguments);
             return;
         }
-        //TODO: other arguments
 
         setInputText("");
     }
