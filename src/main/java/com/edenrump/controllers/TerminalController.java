@@ -6,6 +6,7 @@ import com.edenrump.loaders.TaskClusterLoader;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.models.terminal.CommandHistory;
+import com.edenrump.models.terminal.TerminalDisplay;
 import com.edenrump.ui.controls.LinuxTextField;
 import com.edenrump.ui.transitions.RegionTimelines;
 import javafx.animation.PauseTransition;
@@ -42,10 +43,6 @@ public class TerminalController {
      */
     public VBox terminalMessageDisplay;
     /**
-     * The loading pane to be displayed when the program is loading and not available for user interaction
-     */
-    public AnchorPane LoadingPane;
-    /**
      * The base StackPane supporting all other nodes in the Terminal console
      */
     public StackPane terminalBaseStackLayer;
@@ -74,7 +71,7 @@ public class TerminalController {
      */
     private final CommandHistory commandHistory = new CommandHistory(7);
 
-    private TaskCluster taskCluster = null;
+    private final TerminalDisplay display = new TerminalDisplay();
 
     /**
      * A map of all tasks available to the user
@@ -82,25 +79,18 @@ public class TerminalController {
     private final Map<Integer, Pair<Task, Label>> taskMap = new HashMap<>();
 
     public void initialize() {
-        terminalInputField.setEditable(false);
-
-        TaskClusterLoader tcl = new TaskClusterLoader();
-        try {
-            taskCluster = tcl.loadFromFile(
-                    new File(QuickNote.class.getResource("seedFiles/tasks.json").toURI()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Platform.exit();
-        }
-        loadCluster(taskCluster);
+        enterDisplayMode("Loading...");
 
         addKeyListeners();
         addStateListener();
+
+        display.taskClusterProperty().addListener((obs, oldCluster, newCluster) -> {
+            loadCluster(newCluster);
+        });
+        display.seedCluster();
+
+
         enterEditMode();
-
-
-        terminalInputField.setEditable(true);
     }
 
     private void addKeyListeners() {
@@ -123,7 +113,6 @@ public class TerminalController {
     private void enterDisplayMode(String message) {
         changeMode(DISPLAY_STATE, message);
     }
-
     private void enterEditMode() {
         changeMode(INPUT_STATE, ">");
     }
@@ -132,6 +121,12 @@ public class TerminalController {
         leftMessageDisplay.setText(message);
         if (STATE == DISPLAY_STATE) terminalInputField.setText("");
         APP_STATE.set(STATE);
+
+        if(STATE == DISPLAY_STATE) {
+            terminalInputField.setEditable(false);
+        } else {
+            terminalInputField.setEditable(true);
+        }
     }
 
     private void addStateListener() {
@@ -272,9 +267,5 @@ public class TerminalController {
             taskMap.put(counter, new Pair<>(task, label));
         }
         terminalMessageDisplay.getChildren().add(tasks);
-
-
-        terminalBaseStackLayer.getChildren().remove(LoadingPane);
-
     }
 }
