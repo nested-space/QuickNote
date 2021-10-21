@@ -7,13 +7,12 @@
 <AnchorPane xmlns="http://javafx.com/javafx" fx:controller="com.edenrump.controllers.TerminalController"
             xmlns:fx="http://javafx.com/fxml">
 
-    <StackPane fx:id="terminalBaseStackLayer"
-               AnchorPane.bottomAnchor="65.0"
+    <StackPane AnchorPane.bottomAnchor="65.0"
                AnchorPane.rightAnchor="15.0">
 
         <AnchorPane fx:id="terminalAnchorLayer" prefHeight="150.0" prefWidth="600.0"
                     style="-fx-background-color: black;">
-            <HBox fx:id="terminalInputContainer" alignment="CENTER_LEFT" layoutX="36.0" layoutY="270.0"
+            <HBox alignment="CENTER_LEFT" layoutX="36.0" layoutY="270.0"
                   prefHeight="30.0"
                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <Label fx:id="leftMessageDisplay"/>

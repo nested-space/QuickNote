@@ -1,8 +1,6 @@
 package com.edenrump.controllers;
 
-import com.edenrump.QuickNote;
 import com.edenrump.config.ApplicationDefaults;
-import com.edenrump.loaders.TaskClusterLoader;
 import com.edenrump.models.task.Task;
 import com.edenrump.models.task.TaskCluster;
 import com.edenrump.models.terminal.CommandHistory;
@@ -11,10 +9,9 @@ import com.edenrump.ui.controls.LinuxTextField;
 import com.edenrump.ui.transitions.RegionTimelines;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.KeyCode;
@@ -23,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,29 +27,13 @@ import java.util.regex.Pattern;
 public class TerminalController {
 
     /**
-     * The application state associated with terminal user input
-     */
-    private final int INPUT_STATE = 0x001;
-    /**
-     * The application state associated with terminal display-only mode
-     */
-    private final int DISPLAY_STATE = 0x002;
-    /**
      * Container for all messages to be displayed via the terminal
      */
     public VBox terminalMessageDisplay;
     /**
-     * The base StackPane supporting all other nodes in the Terminal console
-     */
-    public StackPane terminalBaseStackLayer;
-    /**
      * The AnchorPane that holds the terminal display
      */
     public AnchorPane terminalAnchorLayer;
-    /**
-     * The container tha holds the user input and display components of the terminal
-     */
-    public HBox terminalInputContainer;
     /**
      * The input field in the terminal display
      */
@@ -62,10 +42,6 @@ public class TerminalController {
      * The label used to display feedback to user in place of the text field
      */
     public Label leftMessageDisplay;
-    /**
-     * The current state of the app
-     */
-    private final IntegerProperty APP_STATE = new SimpleIntegerProperty(-1);
     /**
      * The command line history
      */
@@ -82,13 +58,9 @@ public class TerminalController {
         enterDisplayMode("Loading...");
 
         addKeyListeners();
-        addStateListener();
 
-        display.taskClusterProperty().addListener((obs, oldCluster, newCluster) -> {
-            loadCluster(newCluster);
-        });
+        display.taskClusterProperty().addListener((obs, oldCluster, newCluster) -> displayCluster(newCluster));
         display.seedCluster();
-
 
         enterEditMode();
     }
@@ -111,35 +83,16 @@ public class TerminalController {
     }
 
     private void enterDisplayMode(String message) {
-        changeMode(DISPLAY_STATE, message);
+        changeMode(false, message);
     }
     private void enterEditMode() {
-        changeMode(INPUT_STATE, ">");
+        changeMode(true, ">");
     }
 
-    private void changeMode(int STATE, String message) {
+    private void changeMode(boolean allowInput, String message) {
         leftMessageDisplay.setText(message);
-        if (STATE == DISPLAY_STATE) terminalInputField.setText("");
-        APP_STATE.set(STATE);
-
-        if(STATE == DISPLAY_STATE) {
-            terminalInputField.setEditable(false);
-        } else {
-            terminalInputField.setEditable(true);
-        }
-    }
-
-    private void addStateListener() {
-        APP_STATE.addListener((observable, oldValue, newValue) -> {
-            switch (newValue.intValue()) {
-                case INPUT_STATE:
-                    terminalInputField.setEditable(true);
-                    break;
-                case DISPLAY_STATE:
-                    terminalInputField.setEditable(false);
-                    break;
-            }
-        });
+        if (!allowInput) terminalInputField.setText("");
+        terminalInputField.setEditable(allowInput);
     }
 
     private void parseInput(String input) {
@@ -224,7 +177,6 @@ public class TerminalController {
     }
 
     private void parseHistory(List<String> args) {
-        System.out.println("parsing history");
         boolean clearFlag = false;
         args.remove(0); //get rid of history tag
 
@@ -237,35 +189,42 @@ public class TerminalController {
     private void setInputText(String text) {
         String textToSet = text == null ? " " : text;
         terminalInputField.setText(textToSet);
-        Platform.runLater(() -> {
-            terminalInputField.stopCursorBlink();
-            terminalInputField.setEditable(false);
-            PauseTransition pt = new PauseTransition(Duration.seconds(0.1));
-            pt.setOnFinished(event -> {
-                terminalInputField.positionCaret(textToSet.length());
-                terminalInputField.resetCursorBlink();
-                terminalInputField.setEditable(true);
-            });
-            pt.playFromStart();
-        });
     }
 
-    public void loadCluster(TaskCluster cluster) {
+    public void displayCluster(TaskCluster cluster) {
+        clearDisplay();
+
+        terminalMessageDisplay.getChildren().addAll(
+                createTitlePane(cluster.getName()),
+                createTaskPane(cluster.getTasks())
+        );
+    }
+
+    public void clearDisplay(){
         terminalMessageDisplay.getChildren().clear();
-        int counter = 0;
-        Label title = new Label(cluster.getName());
-        Separator s = new Separator(Orientation.HORIZONTAL);
-        HBox.setHgrow(s, Priority.ALWAYS);
-        HBox titleContainer = new HBox(title, s);
+    }
+
+    public Node createTitlePane(String title){
+        Label titleLabel = new Label(title);
+
+        Separator horizontalBeam = new Separator(Orientation.HORIZONTAL);
+        HBox.setHgrow(horizontalBeam, Priority.ALWAYS);
+
+        HBox titleContainer = new HBox(titleLabel, horizontalBeam);
         titleContainer.setSpacing(5);
         titleContainer.setAlignment(Pos.CENTER_LEFT);
-        terminalMessageDisplay.getChildren().add(titleContainer);
-        FlowPane tasks = new FlowPane(Orientation.VERTICAL, 10, 1);
-        for (Task task : cluster.getTasks()) {
+
+        return titleContainer;
+    }
+
+    public Node createTaskPane(List<Task> tasks){
+        FlowPane taskPane = new FlowPane(Orientation.VERTICAL, 10, 1);
+        int counter = 0;
+        for (Task task : tasks) {
             Label label = new Label(++counter + ": " + task.getName());
-            tasks.getChildren().add(label);
+            taskPane.getChildren().add(label);
             taskMap.put(counter, new Pair<>(task, label));
         }
-        terminalMessageDisplay.getChildren().add(tasks);
+        return taskPane;
     }
 }
