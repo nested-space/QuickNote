@@ -28,6 +28,7 @@ public class TerminalDisplay {
                     new File(QuickNote.class.getResource("seedFiles/tasks.json").toURI())));
 
         } catch (Exception e) {
+            //TODO: handle with response to user
             e.printStackTrace();
             System.out.println("Unable to load task cluster from seed file");
             taskCluster.set(null);

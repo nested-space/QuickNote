@@ -115,6 +115,14 @@ public class TerminalController {
             exit.playFromStart();
         });
 
+        //TODO: replace handleSingleWordTerminalCommand with check for argument number
+                //followed by argument handling
+
+        handleSingleWordTerminalCommand(arguments, "help", () -> {
+            enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
+            //TODO: update model so it can handle free text
+        });
+
         handleSingleWordTerminalCommand(arguments, "wide", () -> {
             enterDisplayMode(ApplicationDefaults.DISPLAY_INDICATOR);
             RegionTimelines.sizeTimelineWithEffect(terminalAnchorLayer, ApplicationDefaults.WIDE_WIDTH, ApplicationDefaults.WIDE_HEIGHT, event -> enterEditMode()).playFromStart();

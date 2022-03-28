@@ -6,14 +6,20 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.IOException;
+import java.io.InputStream;
 
 public class QuickNote extends Application {
+
+    private final static Color APPLICATION_PRIMARY_COLOR = Color.GREEN;
+    private final static String APPLICATION_ICON_LOCATION = "img/tab.png";
 
     /**
      * The screen bounds of the primary screen
@@ -56,11 +62,23 @@ public class QuickNote extends Application {
      */
     private void setUpStage(Stage stage, Parent root) {
         stage.setTitle("Quick Note");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("img/tab.png")));
+        stage.getIcons().add(getApplicationImage());
         Scene scene = new Scene(root, screen.getWidth(), screen.getHeight(), Color.TRANSPARENT);
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
+    }
+
+    private Image getApplicationImage() {
+        InputStream is = getClass().getResourceAsStream(APPLICATION_ICON_LOCATION);
+        if (is != null) {
+            return new Image(is);
+        } else {
+            //If no image found, return square with application primary color as backup
+            WritableImage image = new WritableImage(1, 1);
+            image.getPixelWriter().setColor(0, 0, APPLICATION_PRIMARY_COLOR);
+            return image;
+        }
     }
 }

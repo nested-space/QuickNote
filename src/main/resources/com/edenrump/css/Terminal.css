@@ -2,7 +2,30 @@
     -fx-font-family: "Red Hat Text";
 }
 
-
+.split-menu-button {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border;
+    -fx-background-insets: 0 0 -1 0, 0;
+    -fx-background-radius: 3, 3;
+    -fx-padding: 0;
+}
+.split-menu-button > .label {
+    -fx-text-fill: -fx-text-base-color;
+    -fx-background-color: -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 1 0 1 1, 2 1 2 2;
+    -fx-background-radius: 2 0 0 2, 1 0 0 1;
+    -fx-padding: 0.333333em 0.667em 0.333333em 0.667em; /* 4 8 4 8 */
+}
+.split-menu-button > .arrow-button {
+    -fx-background-color: -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 1, 2;
+    -fx-background-radius: 0 2 2 0, 0 1 1 0;
+    -fx-padding: 0.5em 0.667em 0.5em 0.667em; /* 6 8 6 8 */
+}
+.split-menu-button:focused {
+    -fx-background-color: -fx-focus-color;
+    -fx-background-insets: -0.2;
+    -fx-background-radius: 3;
+}
 /*******************************************************************************
  *                                                                             *
  * Terminal text                                                                       *
