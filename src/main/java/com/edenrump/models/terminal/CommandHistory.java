@@ -11,6 +11,9 @@ public class CommandHistory {
     private int numberOfCommands = 0;
     private final String[] commandHistory;
 
+    public static final int SCROLL_UP = 1;
+    public static final int SCROLL_DOWN = -1;
+
     public CommandHistory(int maxNumber) {
         commandHistory = new String[maxNumber];
     }
