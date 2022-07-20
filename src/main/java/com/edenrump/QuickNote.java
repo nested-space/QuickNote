@@ -68,6 +68,8 @@ public class QuickNote extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
+        stage.setX(0);
+        stage.setY(0);
     }
 
     private Image getApplicationImage() {
